@@ -17,7 +17,7 @@ jobs:
   dbt_cd_build:
     runs-on: ubuntu-latest
     env:
-      MOTHERDUCK_TOKEN: ${{ secrets.MotherDuck_GitHub_Token }}
+      MOTHERDUCK_GITHUB_TOKEN: ${{ secrets.MotherDuck_GitHub_Token }}
 
     steps:
        # Step 1: Check out repository code
@@ -46,7 +46,7 @@ jobs:
               outputs:
                   prod:
                     type: duckdb
-                    path: "md:finance?motherduck_token={{ env_var('MOTHERDUCK_TOKEN') }}"
+                    path: "md:finance?motherduck_token={{ env_var('MOTHERDUCK_GITHUB_TOKEN') }}"
                     schema: analytics_prod
                     threads: 4
 
@@ -59,8 +59,8 @@ jobs:
       # prove the token is actually present
       - name: verify token present
         run: |
-          test -n "$MOTHERDUCK_TOKEN" || (echo "MOTHERDUCK_TOKEN missing" && exit 1)
-          echo "md token length: ${#MOTHERDUCK_TOKEN}"
+          test -n "$MOTHERDUCK_GITHUB_TOKEN" || (echo "MOTHERDUCK_GITHUB_TOKEN missing" && exit 1)
+          echo "md token length: ${#MOTHERDUCK_GITHUB_TOKEN}"
 
       - name: dbt debug
         run: dbt debug --target prod
