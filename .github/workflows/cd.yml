@@ -1,0 +1,75 @@
+# Name of your GitHub Actions workflow
+name: dbt CD Workflow (Deployment)
+
+# -----------------
+# TRIGGER
+# -----------------
+# This workflow ONLY runs on a push to the 'main' branch.
+on:
+  push:
+    branches:
+      - main
+
+# -----------------
+# JOBS
+# -----------------
+jobs:
+  dbt_cd_build:
+    runs-on: ubuntu-latest
+    env:
+      MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+
+    steps:
+       # Step 1: Check out repository code
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      # Step 3: Install Python dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install duckdb==1.3.2
+          pip install dbt-duckdb
+      
+      # Step 4: Configure dbt Profile
+      - name: Configure dbt Profile
+        run: |
+            mkdir -p ~/.dbt
+            cat <<EOF > ~/.dbt/profiles.yml
+            portfolio_project_2:
+            outputs:
+                prod:
+                type: duckdb
+                path: "md:finance"
+                motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+                schema: analytics_prod
+                threads: 4
+            target: prod
+            EOF
+      
+      # -----------------
+      # Push to Prod
+      # -----------------
+
+      # Step 6: dbt build
+      - name: Run dbt build for Production
+        run: |
+          dbt deps
+          dbt build --target prod
+
+      # Step 7: Create production manifest for slim CI
+      - name: Upload prod state (manifest + run_results)
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod-state
+          path: |
+            target/manifest.json
+            target/run_results.json
+          if-no-files-found: error
+          retention-days: 14
