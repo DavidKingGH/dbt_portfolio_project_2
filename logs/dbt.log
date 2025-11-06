@@ -836,3 +836,234 @@ alter view "finance"."analytics_dev"."src_stocks__dbt_tmp" rename to "src_stocks
 [0m14:57:41.096147 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E808D0A470>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E808D09F20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E808D03B50>]}
 [0m14:57:41.096560 [debug] [MainThread]: Flushing usage events
 [0m14:57:41.866239 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:13:42.051627 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC7EC8050>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC86D42D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC8D17ED0>]}
+
+
+============================== 18:13:42.056001 | 778e2293-7214-474e-b4f7-b4d7601ca520 ==============================
+[0m18:13:42.056001 [info ] [MainThread]: Running with dbt=1.10.13
+[0m18:13:42.056784 [debug] [MainThread]: running dbt with arguments {'profiles_dir': 'C:\\Users\\David\\.dbt', 'no_print': 'None', 'cache_selected_only': 'False', 'use_colors': 'True', 'write_json': 'True', 'warn_error': 'None', 'log_path': 'C:\\Users\\David\\Downloads\\Coding_Projects\\dbt\\portfolio\\portfolio_project_2\\logs', 'fail_fast': 'False', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'partial_parse': 'True', 'use_experimental_parser': 'False', 'version_check': 'True', 'quiet': 'False', 'introspect': 'True', 'empty': 'False', 'log_cache_events': 'False', 'debug': 'False', 'log_format': 'default', 'invocation_command': 'dbt build --target prod', 'printer_width': '80', 'target_path': 'None'}
+[0m18:13:42.304019 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC8080180>]}
+[0m18:13:42.369313 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC8BBBAC0>]}
+[0m18:13:42.371978 [info ] [MainThread]: Registered adapter: duckdb=1.10.0
+[0m18:13:42.624611 [debug] [MainThread]: checksum: fd5f499d60404c73e369f2149bd6aa6c74754a4e78aa98476ca57564d99f7088, vars: {}, profile: , target: prod, version: 1.10.13
+[0m18:13:42.703106 [info ] [MainThread]: Unable to do partial parsing because of a version mismatch
+[0m18:13:42.703671 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC9E15750>]}
+[0m18:13:43.925897 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFC9F8EE40>]}
+[0m18:13:43.988711 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\manifest.json
+[0m18:13:43.999904 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\semantic_manifest.json
+[0m18:13:44.048272 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA6197F0>]}
+[0m18:13:44.048755 [info ] [MainThread]: Found 2 models, 2 sources, 461 macros
+[0m18:13:44.050762 [info ] [MainThread]: 
+[0m18:13:44.051286 [info ] [MainThread]: Concurrency: 4 threads (target='prod')
+[0m18:13:44.051746 [info ] [MainThread]: 
+[0m18:13:44.052363 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m18:13:44.057504 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_finance'
+[0m18:13:44.133632 [debug] [ThreadPool]: Using duckdb connection "list_finance"
+[0m18:13:44.134025 [debug] [ThreadPool]: On list_finance: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "connection_name": "list_finance"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"finance"'
+    
+  
+  
+[0m18:13:44.134340 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m18:13:45.359809 [debug] [ThreadPool]: SQL status: OK in 1.225 seconds
+[0m18:13:45.361190 [debug] [ThreadPool]: On list_finance: Close
+[0m18:13:45.361908 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_finance, now create_finance_analytics_prod)
+[0m18:13:45.362378 [debug] [ThreadPool]: Creating schema "database: "finance"
+schema: "analytics_prod"
+"
+[0m18:13:45.368133 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_prod"
+[0m18:13:45.368497 [debug] [ThreadPool]: On create_finance_analytics_prod: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "connection_name": "create_finance_analytics_prod"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='finance'
+        and type='sqlite'
+    
+  
+[0m18:13:45.368803 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m18:13:45.370276 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m18:13:45.371613 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_prod"
+[0m18:13:45.371929 [debug] [ThreadPool]: On create_finance_analytics_prod: BEGIN
+[0m18:13:45.373109 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m18:13:45.373682 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_prod"
+[0m18:13:45.373999 [debug] [ThreadPool]: On create_finance_analytics_prod: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "connection_name": "create_finance_analytics_prod"} */
+
+    
+    
+        create schema if not exists "finance"."analytics_prod"
+    
+[0m18:13:45.424623 [debug] [ThreadPool]: SQL status: OK in 0.050 seconds
+[0m18:13:45.425570 [debug] [ThreadPool]: On create_finance_analytics_prod: COMMIT
+[0m18:13:45.425897 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_prod"
+[0m18:13:45.426194 [debug] [ThreadPool]: On create_finance_analytics_prod: COMMIT
+[0m18:13:45.473200 [debug] [ThreadPool]: SQL status: OK in 0.047 seconds
+[0m18:13:45.473619 [debug] [ThreadPool]: On create_finance_analytics_prod: Close
+[0m18:13:45.475121 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_finance_analytics_prod'
+[0m18:13:45.480423 [debug] [ThreadPool]: Using duckdb connection "list_finance_analytics_prod"
+[0m18:13:45.480839 [debug] [ThreadPool]: On list_finance_analytics_prod: BEGIN
+[0m18:13:45.481153 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m18:13:45.482374 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m18:13:45.482710 [debug] [ThreadPool]: Using duckdb connection "list_finance_analytics_prod"
+[0m18:13:45.483043 [debug] [ThreadPool]: On list_finance_analytics_prod: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "connection_name": "list_finance_analytics_prod"} */
+select
+      'finance' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'analytics_prod'
+    and lower(table_catalog) = 'finance'
+  
+[0m18:13:45.507574 [debug] [ThreadPool]: SQL status: OK in 0.024 seconds
+[0m18:13:45.509231 [debug] [ThreadPool]: On list_finance_analytics_prod: ROLLBACK
+[0m18:13:45.510478 [debug] [ThreadPool]: Failed to rollback 'list_finance_analytics_prod'
+[0m18:13:45.510854 [debug] [ThreadPool]: On list_finance_analytics_prod: Close
+[0m18:13:45.512183 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA883380>]}
+[0m18:13:45.512687 [debug] [MainThread]: Using duckdb connection "master"
+[0m18:13:45.513019 [debug] [MainThread]: On master: BEGIN
+[0m18:13:45.513334 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m18:13:45.514557 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m18:13:45.514914 [debug] [MainThread]: On master: COMMIT
+[0m18:13:45.515221 [debug] [MainThread]: Using duckdb connection "master"
+[0m18:13:45.515511 [debug] [MainThread]: On master: COMMIT
+[0m18:13:45.516113 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m18:13:45.516433 [debug] [MainThread]: On master: Close
+[0m18:13:45.520779 [debug] [Thread-1 (]: Began running node model.portfolio_project_2.src_stocks
+[0m18:13:45.521682 [debug] [Thread-2 (]: Began running node model.portfolio_project_2.src_vix
+[0m18:13:45.521311 [info ] [Thread-1 (]: 1 of 2 START sql view model analytics_prod.src_stocks .......................... [RUN]
+[0m18:13:45.523268 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.portfolio_project_2.src_stocks'
+[0m18:13:45.523828 [debug] [Thread-1 (]: Began compiling node model.portfolio_project_2.src_stocks
+[0m18:13:45.530855 [debug] [Thread-1 (]: Writing injected SQL for node "model.portfolio_project_2.src_stocks"
+[0m18:13:45.522164 [info ] [Thread-2 (]: 2 of 2 START sql view model analytics_prod.src_vix ............................. [RUN]
+[0m18:13:45.531605 [debug] [Thread-2 (]: Acquiring new duckdb connection 'model.portfolio_project_2.src_vix'
+[0m18:13:45.531982 [debug] [Thread-2 (]: Began compiling node model.portfolio_project_2.src_vix
+[0m18:13:45.536797 [debug] [Thread-2 (]: Writing injected SQL for node "model.portfolio_project_2.src_vix"
+[0m18:13:45.539292 [debug] [Thread-2 (]: Began executing node model.portfolio_project_2.src_vix
+[0m18:13:45.539923 [debug] [Thread-1 (]: Began executing node model.portfolio_project_2.src_stocks
+[0m18:13:45.569270 [debug] [Thread-2 (]: Writing runtime sql for node "model.portfolio_project_2.src_vix"
+[0m18:13:45.572445 [debug] [Thread-1 (]: Writing runtime sql for node "model.portfolio_project_2.src_stocks"
+[0m18:13:45.575631 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.src_vix"
+[0m18:13:45.576153 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: BEGIN
+[0m18:13:45.576560 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m18:13:45.577387 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m18:13:45.577804 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: BEGIN
+[0m18:13:45.578167 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m18:13:45.578809 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m18:13:45.579196 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.src_vix"
+[0m18:13:45.579577 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_vix"} */
+
+  
+  create view "finance"."analytics_prod"."src_vix__dbt_tmp" as (
+    with src as (
+    select *
+    from "finance"."raw"."vix"
+)
+
+select
+    trade_date::date as trade_date, 
+    "close"::double as "close"
+from src
+  );
+
+[0m18:13:45.580234 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m18:13:45.580618 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m18:13:45.581008 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_stocks"} */
+
+  
+  create view "finance"."analytics_prod"."src_stocks__dbt_tmp" as (
+    with src as (
+    select *
+    from "finance"."raw"."stocks"
+)
+
+select 
+    trade_date::date as trade_date, 
+    ticker::text as ticker, 
+    "open"::double as "open", 
+    high::double as high, 
+    low::double as low, 
+    "close"::double as "close", 
+    volume::double as volume, 
+    loaded_at::timestamp as loaded_at
+from src
+  );
+
+[0m18:13:45.655677 [debug] [Thread-2 (]: SQL status: OK in 0.076 seconds
+[0m18:13:45.656264 [debug] [Thread-1 (]: SQL status: OK in 0.075 seconds
+[0m18:13:45.661965 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.src_vix"
+[0m18:13:45.664506 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m18:13:45.664945 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_vix"} */
+alter view "finance"."analytics_prod"."src_vix" rename to "src_vix__dbt_backup"
+[0m18:13:45.665389 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_stocks"} */
+alter view "finance"."analytics_prod"."src_stocks__dbt_tmp" rename to "src_stocks"
+[0m18:13:45.713777 [debug] [Thread-2 (]: SQL status: OK in 0.048 seconds
+[0m18:13:45.716800 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.src_vix"
+[0m18:13:45.717193 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_vix"} */
+alter view "finance"."analytics_prod"."src_vix__dbt_tmp" rename to "src_vix"
+[0m18:13:45.717599 [debug] [Thread-1 (]: SQL status: OK in 0.052 seconds
+[0m18:13:45.727514 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: COMMIT
+[0m18:13:45.727942 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m18:13:45.728287 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: COMMIT
+[0m18:13:45.765464 [debug] [Thread-2 (]: SQL status: OK in 0.048 seconds
+[0m18:13:45.768662 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: COMMIT
+[0m18:13:45.769062 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.src_vix"
+[0m18:13:45.769403 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: COMMIT
+[0m18:13:45.856185 [debug] [Thread-2 (]: SQL status: OK in 0.086 seconds
+[0m18:13:45.861310 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.src_vix"
+[0m18:13:45.861709 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_vix"} */
+
+      drop view if exists "finance"."analytics_prod"."src_vix__dbt_backup" cascade
+    
+[0m18:13:45.862253 [debug] [Thread-1 (]: SQL status: OK in 0.134 seconds
+[0m18:13:45.864497 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m18:13:45.864883 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "prod", "node_id": "model.portfolio_project_2.src_stocks"} */
+
+      drop view if exists "finance"."analytics_prod"."src_stocks__dbt_backup" cascade
+    
+[0m18:13:45.966596 [debug] [Thread-2 (]: SQL status: OK in 0.104 seconds
+[0m18:13:45.968952 [debug] [Thread-2 (]: On model.portfolio_project_2.src_vix: Close
+[0m18:13:45.971379 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA66D850>]}
+[0m18:13:45.972726 [debug] [Thread-1 (]: SQL status: OK in 0.107 seconds
+[0m18:13:45.972171 [info ] [Thread-2 (]: 2 of 2 OK created sql view model analytics_prod.src_vix ........................ [[32mOK[0m in 0.44s]
+[0m18:13:45.974325 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: Close
+[0m18:13:45.974994 [debug] [Thread-2 (]: Finished running node model.portfolio_project_2.src_vix
+[0m18:13:45.975611 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '778e2293-7214-474e-b4f7-b4d7601ca520', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCAA70680>]}
+[0m18:13:45.976397 [info ] [Thread-1 (]: 1 of 2 OK created sql view model analytics_prod.src_stocks ..................... [[32mOK[0m in 0.45s]
+[0m18:13:45.977185 [debug] [Thread-1 (]: Finished running node model.portfolio_project_2.src_stocks
+[0m18:13:45.978775 [debug] [MainThread]: Using duckdb connection "master"
+[0m18:13:45.979172 [debug] [MainThread]: On master: BEGIN
+[0m18:13:45.979481 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m18:13:45.980676 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m18:13:45.981043 [debug] [MainThread]: On master: COMMIT
+[0m18:13:45.981347 [debug] [MainThread]: Using duckdb connection "master"
+[0m18:13:45.981635 [debug] [MainThread]: On master: COMMIT
+[0m18:13:45.982236 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m18:13:45.982548 [debug] [MainThread]: On master: Close
+[0m18:13:45.982977 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m18:13:45.983324 [debug] [MainThread]: Connection 'create_finance_analytics_prod' was properly closed.
+[0m18:13:45.983618 [debug] [MainThread]: Connection 'list_finance_analytics_prod' was properly closed.
+[0m18:13:45.983893 [debug] [MainThread]: Connection 'model.portfolio_project_2.src_stocks' was properly closed.
+[0m18:13:45.984164 [debug] [MainThread]: Connection 'model.portfolio_project_2.src_vix' was properly closed.
+[0m18:13:45.984521 [info ] [MainThread]: 
+[0m18:13:45.985077 [info ] [MainThread]: Finished running 2 view models in 0 hours 0 minutes and 1.93 seconds (1.93s).
+[0m18:13:45.986492 [debug] [MainThread]: Command end result
+[0m18:13:46.006912 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\manifest.json
+[0m18:13:46.009215 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\semantic_manifest.json
+[0m18:13:46.015501 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\run_results.json
+[0m18:13:46.015926 [info ] [MainThread]: 
+[0m18:13:46.016785 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m18:13:46.017498 [info ] [MainThread]: 
+[0m18:13:46.018025 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=2
+[0m18:13:46.018944 [debug] [MainThread]: Command `-c build` succeeded at 18:13:46.018820 after 4.15 seconds
+[0m18:13:46.019328 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA9AC690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA627EC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA518D50>]}
+[0m18:13:46.019739 [debug] [MainThread]: Flushing usage events
+[0m18:13:46.744053 [debug] [MainThread]: An error was encountered while trying to flush usage events
