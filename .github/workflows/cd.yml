@@ -17,7 +17,7 @@ jobs:
   dbt_cd_build:
     runs-on: ubuntu-latest
     env:
-      MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+      MOTHERDUCK_TOKEN: ${{ secrets.MotherDuck_GitHub_Token }}
 
     steps:
        # Step 1: Check out repository code
@@ -47,7 +47,7 @@ jobs:
                   prod:
                     type: duckdb
                     path: "md:finance"
-                    motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+                    motherduck_token: "{{ env_var('MotherDuck_GitHub_Token') }}"
                     schema: analytics_prod
                     threads: 4
 
@@ -56,7 +56,7 @@ jobs:
       # -----------------
       # Push to Prod
       # -----------------
-        
+
       # prove the token is actually present
       - name: verify token present
         run: |
