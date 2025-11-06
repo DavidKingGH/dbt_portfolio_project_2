@@ -43,14 +43,14 @@ jobs:
             mkdir -p ~/.dbt
             cat <<EOF > ~/.dbt/profiles.yml
             portfolio_project_2:
-            outputs:
-                prod:
-                  type: duckdb
-                  path: "md:finance"
-                  motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
-                  schema: analytics_prod
-                  threads: 4
-            target: prod
+              outputs:
+                  prod:
+                    type: duckdb
+                    path: "md:finance"
+                    motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+                    schema: analytics_prod
+                    threads: 4
+              target: prod
             EOF
       
       # -----------------

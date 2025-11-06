@@ -39,14 +39,14 @@ jobs:
             mkdir -p ~/.dbt
             cat <<EOF > ~/.dbt/profiles.yml
             portfolio_project_2:
-            outputs:
-                dev:
-                  type: duckdb
-                  path: "md:finance"
-                  motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
-                  schema: analytics_dev
-                  threads: 4
-            target: dev
+              outputs:
+                  dev:
+                    type: duckdb
+                    path: "md:finance"
+                    motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+                    schema: analytics_dev
+                    threads: 4
+              target: dev
             EOF
       #Step 5: Download manifest.json file from the prod environment 
       - name: Download prod manifest from CD workflow
