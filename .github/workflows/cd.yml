@@ -46,8 +46,7 @@ jobs:
               outputs:
                   prod:
                     type: duckdb
-                    path: "md:finance"
-                    motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+                    path: "md:finance?motherduck_token={{ env_var('MOTHERDUCK_TOKEN') }}"
                     schema: analytics_prod
                     threads: 4
 
