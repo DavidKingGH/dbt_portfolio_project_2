@@ -51,20 +51,11 @@ jobs:
                     threads: 4
 
             YAML
-            
+
       
       # -----------------
       # Push to Prod
       # -----------------
-
-      # prove the token is actually present
-      - name: verify token present
-        run: |
-          test -n "$MOTHERDUCK_TOKEN" || (echo "MOTHERDUCK_TOKEN missing" && exit 1)
-          echo "md token length: ${#MOTHERDUCK_TOKEN}"
-
-      - name: dbt debug
-        run: dbt debug --target prod
 
       # Step 6: dbt build
       - name: Run dbt build for Production
