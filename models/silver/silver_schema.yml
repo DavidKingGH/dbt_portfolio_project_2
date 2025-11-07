@@ -1,0 +1,194 @@
+version: 2
+
+models:
+- name: int__price_changes
+  description: "..."
+  data_tests:
+  
+  columns:
+    - name: trade_date
+      description: 
+      data_tests:
+        - not_null
+        - relationships:
+            arguments:
+              to: ref('src_stocks')
+              field: trade_date
+    - name: ticker
+      data_tests:
+        - not_null
+        - relationships:
+            arguments:
+              to: ref('src_stocks')
+              field: ticker
+    - name: close 
+      data_tests:
+        - not_null
+    - name: delta
+      data_tests:
+        - not_null
+    - name: gain
+      data_tests: 
+        - not_null
+    - name: loss
+      data_tests: 
+        - not_null
+    - name: rn
+      data_tests: 
+        - not_null
+    - name: period_check
+      data_tests: 
+        - not_null
+    - name: loaded_at
+      data_tests: 
+        - not_null
+
+- name: int__rsi_sma
+  description: '...'
+  data_tests: 
+ 
+  columns: 
+    - name: event_id
+      data_tests:
+        - unique
+        - not_null
+        - relationships:
+            arguments:
+              to: ref('fct_events')
+              field: event_id
+    - name: order_date
+      data_tests: 
+        - not_null
+    - name: user_id
+      data_tests:
+        - not_null
+    - name: ga_session_id
+      data_tests:
+        - not_null
+    - name: device_category
+      data_tests:
+        - accepted_values:
+            arguments:
+              values: ['desktop', 'mobile', 'tablet']
+    - name: revenue
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">=0"
+    - name: total_items
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 1" # an order should have at least one item
+    - name: distinct_products
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">=0" # an order should have at least one distinct item
+- name: stg__user_sessions
+  description: summarizes the session information for each session for each user.
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['user_id', 'ga_session_id']
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "session_end_timestamp >= session_start_timestamp"
+  columns:
+    - name: user_id
+      data_tests:
+        - not_null
+        - relationships: 
+            arguments:
+              to: ref('dim_users')
+              field: user_id
+    - name: ga_session_id
+      data_tests: 
+        - not_null
+    - name: session_start_timestamp
+      data_tests: 
+        - not_null
+    - name: session_end_timestamp
+      data_tests: 
+        - not_null
+    - name: device_category
+      data_tests:
+        - not_null
+        - accepted_values:
+            arguments:
+              values: ['desktop', 'mobile', 'tablet']
+    - name: event_count
+      data_tests:
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: ">0"
+- name: int__acquisition_touchpoints
+  description: first non-direct touchpoint for each user.
+  columns:
+    - name: user_id
+      data_tests:
+        - unique
+        - not_null
+        - relationships:
+            arguments:
+              field: user_id
+              to: ref('dim_users')
+    - name: session_source
+      data_tests:
+        - not_null
+        - dbt_utils.not_empty_string
+    - name: session_medium
+      data_tests:
+        - not_null
+        - dbt_utils.not_empty_string
+
+- name: int__purchase_touchpoints
+  description: "attribution model linking purchases to marketing touchpoints within 30-day window"
+  
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns: 
+          - purchase_id
+          - touchpoint_timestamp
+          - touchpoint_source
+          - touchpoint_medium
+    
+    - dbt_utils.expression_is_true:
+        name: touchpoints_precede_purchase
+        arguments:
+          expression: "touchpoint_timestamp <= purchase_timestamp"
+    
+    - dbt_utils.expression_is_true:
+        name: touchpoints_within_30_days
+        arguments:
+          expression: "touchpoint_timestamp >= purchase_timestamp - interval '29' day"
+
+  columns:
+    - name: purchase_id
+      description: "purchase identifier - one purchase can have multiple touchpoints"
+      data_tests:
+        - not_null
+        - relationships:
+            to: ref('stg__conversion_events')
+            field: purchase_id
+    
+    - name: user_id
+      description: "user who made the purchase"
+      data_tests:
+        - not_null
+    
+    - name: purchase_timestamp
+      description: "when the purchase occurred"
+      data_tests:
+        - not_null
+    
+    - name: touchpoint_timestamp
+      description: "when the marketing touchpoint occurred (within 30 days before purchase)"
+    
+    - name: touchpoint_source
+      description: "marketing source for the touchpoint"
+    
+    - name: touchpoint_medium
+      description: "marketing medium for the touchpoint"
+
+#
