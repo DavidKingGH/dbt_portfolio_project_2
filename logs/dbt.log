@@ -1067,3 +1067,557 @@ alter view "finance"."analytics_prod"."src_vix__dbt_tmp" rename to "src_vix"
 [0m18:13:46.019328 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA9AC690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA627EC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001CFCA518D50>]}
 [0m18:13:46.019739 [debug] [MainThread]: Flushing usage events
 [0m18:13:46.744053 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m12:48:23.260576 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39BB28050>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39C3342D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39C973ED0>]}
+
+
+============================== 12:48:23.265177 | 29d5d14d-0b1e-4c42-960f-43b7dd783c25 ==============================
+[0m12:48:23.265177 [info ] [MainThread]: Running with dbt=1.10.13
+[0m12:48:23.265860 [debug] [MainThread]: running dbt with arguments {'use_colors': 'True', 'log_format': 'default', 'printer_width': '80', 'write_json': 'True', 'no_print': 'None', 'warn_error': 'None', 'log_path': 'C:\\Users\\David\\Downloads\\Coding_Projects\\dbt\\portfolio\\portfolio_project_2\\logs', 'partial_parse': 'True', 'fail_fast': 'False', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'version_check': 'True', 'quiet': 'False', 'introspect': 'True', 'empty': 'False', 'log_cache_events': 'False', 'debug': 'False', 'profiles_dir': 'C:\\Users\\David\\.dbt', 'invocation_command': 'dbt run --select +fct__rsi', 'cache_selected_only': 'False', 'target_path': 'None'}
+[0m12:48:23.508254 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39BCE0180>]}
+[0m12:48:23.572533 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39C81B9B0>]}
+[0m12:48:23.575231 [info ] [MainThread]: Registered adapter: duckdb=1.10.0
+[0m12:48:23.827197 [debug] [MainThread]: checksum: 9f0c81e2574b4ff463f3d16d080df83c6982fc0372c9feeacae0504ac9ea3ffe, vars: {}, profile: , target: , version: 1.10.13
+[0m12:48:23.905984 [info ] [MainThread]: Unable to do partial parsing because of a version mismatch
+[0m12:48:23.906557 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39DA71B50>]}
+[0m12:48:25.171983 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39DBEEE40>]}
+[0m12:48:25.238688 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\manifest.json
+[0m12:48:25.241000 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\semantic_manifest.json
+[0m12:48:25.268220 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E245C50>]}
+[0m12:48:25.268694 [info ] [MainThread]: Found 6 models, 2 sources, 461 macros
+[0m12:48:25.269203 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39DE88870>]}
+[0m12:48:25.270871 [info ] [MainThread]: 
+[0m12:48:25.271364 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m12:48:25.271828 [info ] [MainThread]: 
+[0m12:48:25.272468 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m12:48:25.277535 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_finance'
+[0m12:48:25.355448 [debug] [ThreadPool]: Using duckdb connection "list_finance"
+[0m12:48:25.355852 [debug] [ThreadPool]: On list_finance: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "connection_name": "list_finance"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"finance"'
+    
+  
+  
+[0m12:48:25.356171 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m12:48:27.096239 [debug] [ThreadPool]: SQL status: OK in 1.740 seconds
+[0m12:48:27.097624 [debug] [ThreadPool]: On list_finance: Close
+[0m12:48:27.098341 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_finance, now create_finance_analytics_dev)
+[0m12:48:27.098818 [debug] [ThreadPool]: Creating schema "database: "finance"
+schema: "analytics_dev"
+"
+[0m12:48:27.105499 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_dev"
+[0m12:48:27.105905 [debug] [ThreadPool]: On create_finance_analytics_dev: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "connection_name": "create_finance_analytics_dev"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='finance'
+        and type='sqlite'
+    
+  
+[0m12:48:27.106220 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m12:48:27.107807 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m12:48:27.109144 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_dev"
+[0m12:48:27.109456 [debug] [ThreadPool]: On create_finance_analytics_dev: BEGIN
+[0m12:48:27.110513 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m12:48:27.110824 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_dev"
+[0m12:48:27.111130 [debug] [ThreadPool]: On create_finance_analytics_dev: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "connection_name": "create_finance_analytics_dev"} */
+
+    
+    
+        create schema if not exists "finance"."analytics_dev"
+    
+[0m12:48:27.160850 [debug] [ThreadPool]: SQL status: OK in 0.049 seconds
+[0m12:48:27.161821 [debug] [ThreadPool]: On create_finance_analytics_dev: COMMIT
+[0m12:48:27.162165 [debug] [ThreadPool]: Using duckdb connection "create_finance_analytics_dev"
+[0m12:48:27.162481 [debug] [ThreadPool]: On create_finance_analytics_dev: COMMIT
+[0m12:48:27.213547 [debug] [ThreadPool]: SQL status: OK in 0.051 seconds
+[0m12:48:27.213981 [debug] [ThreadPool]: On create_finance_analytics_dev: Close
+[0m12:48:27.215865 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_finance_analytics_dev'
+[0m12:48:27.221452 [debug] [ThreadPool]: Using duckdb connection "list_finance_analytics_dev"
+[0m12:48:27.221901 [debug] [ThreadPool]: On list_finance_analytics_dev: BEGIN
+[0m12:48:27.222187 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m12:48:27.223374 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m12:48:27.223684 [debug] [ThreadPool]: Using duckdb connection "list_finance_analytics_dev"
+[0m12:48:27.224011 [debug] [ThreadPool]: On list_finance_analytics_dev: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "connection_name": "list_finance_analytics_dev"} */
+select
+      'finance' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'analytics_dev'
+    and lower(table_catalog) = 'finance'
+  
+[0m12:48:27.248249 [debug] [ThreadPool]: SQL status: OK in 0.024 seconds
+[0m12:48:27.249655 [debug] [ThreadPool]: On list_finance_analytics_dev: ROLLBACK
+[0m12:48:27.250715 [debug] [ThreadPool]: Failed to rollback 'list_finance_analytics_dev'
+[0m12:48:27.251024 [debug] [ThreadPool]: On list_finance_analytics_dev: Close
+[0m12:48:27.252882 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E125250>]}
+[0m12:48:27.253314 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:48:27.253613 [debug] [MainThread]: On master: BEGIN
+[0m12:48:27.253895 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m12:48:27.255129 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m12:48:27.255443 [debug] [MainThread]: On master: COMMIT
+[0m12:48:27.255738 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:48:27.256018 [debug] [MainThread]: On master: COMMIT
+[0m12:48:27.256652 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m12:48:27.256952 [debug] [MainThread]: On master: Close
+[0m12:48:27.262016 [debug] [Thread-1 (]: Began running node model.portfolio_project_2.src_stocks
+[0m12:48:27.262561 [info ] [Thread-1 (]: 1 of 5 START sql view model analytics_dev.src_stocks ........................... [RUN]
+[0m12:48:27.263437 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.portfolio_project_2.src_stocks'
+[0m12:48:27.263797 [debug] [Thread-1 (]: Began compiling node model.portfolio_project_2.src_stocks
+[0m12:48:27.270405 [debug] [Thread-1 (]: Writing injected SQL for node "model.portfolio_project_2.src_stocks"
+[0m12:48:27.271334 [debug] [Thread-1 (]: Began executing node model.portfolio_project_2.src_stocks
+[0m12:48:27.302413 [debug] [Thread-1 (]: Writing runtime sql for node "model.portfolio_project_2.src_stocks"
+[0m12:48:27.303523 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m12:48:27.304099 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: BEGIN
+[0m12:48:27.304569 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m12:48:27.306741 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m12:48:27.307484 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m12:48:27.307855 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.src_stocks"} */
+
+  
+  create view "finance"."analytics_dev"."src_stocks__dbt_tmp" as (
+    with src as (
+    select *
+    from "finance"."raw"."stocks"
+)
+
+select 
+    trade_date::date as trade_date, 
+    ticker::text as ticker, 
+    "open"::double as "open", 
+    high::double as high, 
+    low::double as low, 
+    "close"::double as "close", 
+    volume::double as volume, 
+    loaded_at::timestamp as loaded_at
+from src
+  );
+
+[0m12:48:27.375254 [debug] [Thread-1 (]: SQL status: OK in 0.067 seconds
+[0m12:48:27.382168 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m12:48:27.382745 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.src_stocks"} */
+alter view "finance"."analytics_dev"."src_stocks" rename to "src_stocks__dbt_backup"
+[0m12:48:27.439332 [debug] [Thread-1 (]: SQL status: OK in 0.056 seconds
+[0m12:48:27.442008 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m12:48:27.442430 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.src_stocks"} */
+alter view "finance"."analytics_dev"."src_stocks__dbt_tmp" rename to "src_stocks"
+[0m12:48:27.500010 [debug] [Thread-1 (]: SQL status: OK in 0.057 seconds
+[0m12:48:27.512485 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: COMMIT
+[0m12:48:27.512919 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m12:48:27.513271 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: COMMIT
+[0m12:48:27.738122 [debug] [Thread-1 (]: SQL status: OK in 0.224 seconds
+[0m12:48:27.743293 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.src_stocks"
+[0m12:48:27.743698 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.src_stocks"} */
+
+      drop view if exists "finance"."analytics_dev"."src_stocks__dbt_backup" cascade
+    
+[0m12:48:27.854823 [debug] [Thread-1 (]: SQL status: OK in 0.111 seconds
+[0m12:48:27.857311 [debug] [Thread-1 (]: On model.portfolio_project_2.src_stocks: Close
+[0m12:48:27.859485 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E43D2E0>]}
+[0m12:48:27.860166 [info ] [Thread-1 (]: 1 of 5 OK created sql view model analytics_dev.src_stocks ...................... [[32mOK[0m in 0.59s]
+[0m12:48:27.861221 [debug] [Thread-1 (]: Finished running node model.portfolio_project_2.src_stocks
+[0m12:48:27.861990 [debug] [Thread-2 (]: Began running node model.portfolio_project_2.int__price_changes
+[0m12:48:27.862620 [info ] [Thread-2 (]: 2 of 5 START sql view model analytics_dev.int__price_changes ................... [RUN]
+[0m12:48:27.863451 [debug] [Thread-2 (]: Acquiring new duckdb connection 'model.portfolio_project_2.int__price_changes'
+[0m12:48:27.864011 [debug] [Thread-2 (]: Began compiling node model.portfolio_project_2.int__price_changes
+[0m12:48:27.866895 [debug] [Thread-2 (]: Writing injected SQL for node "model.portfolio_project_2.int__price_changes"
+[0m12:48:27.867931 [debug] [Thread-2 (]: Began executing node model.portfolio_project_2.int__price_changes
+[0m12:48:27.873209 [debug] [Thread-2 (]: Writing runtime sql for node "model.portfolio_project_2.int__price_changes"
+[0m12:48:27.874194 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.int__price_changes"
+[0m12:48:27.874669 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: BEGIN
+[0m12:48:27.875039 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m12:48:27.876321 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m12:48:27.876703 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.int__price_changes"
+[0m12:48:27.877159 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__price_changes"} */
+
+  
+  create view "finance"."analytics_dev"."int__price_changes__dbt_tmp" as (
+    with base as (
+    select 
+        trade_date,
+        ticker,
+        "close",
+        loaded_at
+    from "finance"."analytics_dev"."src_stocks"
+),
+
+delta as (
+
+    select
+        trade_date,
+        ticker,
+        "close",
+        "close" - lag("close", 1) over(partition by ticker order by trade_date asc, loaded_at asc) as delta,
+        count(*) over(
+            partition by ticker 
+            order by trade_date asc, loaded_at asc 
+            rows between 13 preceding and current row) as period_check,
+        loaded_at
+    from base 
+),
+
+final as (
+    select
+        trade_date,
+        ticker,
+        "close",
+        delta,
+        (case when delta > 0 then delta else 0 end) as gain,
+        (case when delta < 0 then abs(delta) else 0 end) as loss,
+        row_number() over(partition by ticker order by trade_date asc, loaded_at asc) as rn,
+        period_check,
+        loaded_at
+    from delta
+)
+
+select
+    trade_date::date as trade_date,
+    ticker::text as ticker,
+    "close"::decimal as "close",
+    delta::decimal as delta,
+    gain::decimal as gain,
+    loss::decimal as loss,
+    rn::int as rn,
+    period_check::int as period_check,
+    loaded_at::timestamp as loaded_at
+from final
+  );
+
+[0m12:48:27.974215 [debug] [Thread-2 (]: SQL status: OK in 0.096 seconds
+[0m12:48:27.977001 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.int__price_changes"
+[0m12:48:27.977426 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__price_changes"} */
+alter view "finance"."analytics_dev"."int__price_changes" rename to "int__price_changes__dbt_backup"
+[0m12:48:28.026207 [debug] [Thread-2 (]: SQL status: OK in 0.048 seconds
+[0m12:48:28.029266 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.int__price_changes"
+[0m12:48:28.030231 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__price_changes"} */
+alter view "finance"."analytics_dev"."int__price_changes__dbt_tmp" rename to "int__price_changes"
+[0m12:48:28.085174 [debug] [Thread-2 (]: SQL status: OK in 0.054 seconds
+[0m12:48:28.086634 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: COMMIT
+[0m12:48:28.087068 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.int__price_changes"
+[0m12:48:28.087426 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: COMMIT
+[0m12:48:28.266132 [debug] [Thread-2 (]: SQL status: OK in 0.178 seconds
+[0m12:48:28.268598 [debug] [Thread-2 (]: Using duckdb connection "model.portfolio_project_2.int__price_changes"
+[0m12:48:28.268994 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__price_changes"} */
+
+      drop view if exists "finance"."analytics_dev"."int__price_changes__dbt_backup" cascade
+    
+[0m12:48:28.375900 [debug] [Thread-2 (]: SQL status: OK in 0.106 seconds
+[0m12:48:28.377392 [debug] [Thread-2 (]: On model.portfolio_project_2.int__price_changes: Close
+[0m12:48:28.377926 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E6039D0>]}
+[0m12:48:28.378499 [info ] [Thread-2 (]: 2 of 5 OK created sql view model analytics_dev.int__price_changes .............. [[32mOK[0m in 0.51s]
+[0m12:48:28.379439 [debug] [Thread-2 (]: Finished running node model.portfolio_project_2.int__price_changes
+[0m12:48:28.380109 [debug] [Thread-3 (]: Began running node model.portfolio_project_2.int__rsi_sma
+[0m12:48:28.380778 [info ] [Thread-3 (]: 3 of 5 START sql view model analytics_dev.int__rsi_sma ......................... [RUN]
+[0m12:48:28.381532 [debug] [Thread-3 (]: Acquiring new duckdb connection 'model.portfolio_project_2.int__rsi_sma'
+[0m12:48:28.381884 [debug] [Thread-3 (]: Began compiling node model.portfolio_project_2.int__rsi_sma
+[0m12:48:28.384234 [debug] [Thread-3 (]: Writing injected SQL for node "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.385121 [debug] [Thread-3 (]: Began executing node model.portfolio_project_2.int__rsi_sma
+[0m12:48:28.388056 [debug] [Thread-3 (]: Writing runtime sql for node "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.388911 [debug] [Thread-3 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.389324 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: BEGIN
+[0m12:48:28.389662 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m12:48:28.390974 [debug] [Thread-3 (]: SQL status: OK in 0.001 seconds
+[0m12:48:28.391333 [debug] [Thread-3 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.391715 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_sma"} */
+
+  
+  create view "finance"."analytics_dev"."int__rsi_sma__dbt_tmp" as (
+    with base as (
+select
+    trade_date,
+    ticker,
+    "close",
+    delta,
+    gain,
+    loss,
+    rn,
+    period_check,
+    loaded_at
+from "finance"."analytics_dev"."int__price_changes"
+),
+
+rsi_sma as (
+    select
+        trade_date,
+        ticker,
+        "close",
+        delta,
+        gain,
+        loss,
+        avg(gain) over(
+            partition by ticker 
+            order by trade_date asc, loaded_at asc 
+            rows between 13 preceding and current row) as sma_gain,
+        avg(loss) over(
+            partition by ticker 
+            order by trade_date asc, loaded_at asc
+            rows between 13 preceding and current row) as sma_loss,
+        rn,
+        loaded_at,
+        period_check
+    from base
+)
+
+
+select
+    trade_date::date as trade_date,
+    ticker::text as ticker,
+    "close"::decimal as "close",
+    delta::decimal as delta,
+    gain::decimal as gain,
+    loss::decimal as loss,
+    sma_gain::decimal as sma_gain,
+    sma_loss::decimal as sma_loss,
+    rn::int as rn,
+    loaded_at::timestamp as loaded_at,
+    period_check::int as period_check
+from rsi_sma
+  );
+
+[0m12:48:28.479535 [debug] [Thread-3 (]: SQL status: OK in 0.087 seconds
+[0m12:48:28.482192 [debug] [Thread-3 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.482586 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_sma"} */
+alter view "finance"."analytics_dev"."int__rsi_sma" rename to "int__rsi_sma__dbt_backup"
+[0m12:48:28.529160 [debug] [Thread-3 (]: SQL status: OK in 0.046 seconds
+[0m12:48:28.531875 [debug] [Thread-3 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.532289 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_sma"} */
+alter view "finance"."analytics_dev"."int__rsi_sma__dbt_tmp" rename to "int__rsi_sma"
+[0m12:48:28.578797 [debug] [Thread-3 (]: SQL status: OK in 0.046 seconds
+[0m12:48:28.580592 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: COMMIT
+[0m12:48:28.580990 [debug] [Thread-3 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.581344 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: COMMIT
+[0m12:48:28.683354 [debug] [Thread-3 (]: SQL status: OK in 0.102 seconds
+[0m12:48:28.685606 [debug] [Thread-3 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_sma"
+[0m12:48:28.685980 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_sma"} */
+
+      drop view if exists "finance"."analytics_dev"."int__rsi_sma__dbt_backup" cascade
+    
+[0m12:48:28.775440 [debug] [Thread-3 (]: SQL status: OK in 0.089 seconds
+[0m12:48:28.777379 [debug] [Thread-3 (]: On model.portfolio_project_2.int__rsi_sma: Close
+[0m12:48:28.777918 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E505F50>]}
+[0m12:48:28.778530 [info ] [Thread-3 (]: 3 of 5 OK created sql view model analytics_dev.int__rsi_sma .................... [[32mOK[0m in 0.40s]
+[0m12:48:28.779488 [debug] [Thread-3 (]: Finished running node model.portfolio_project_2.int__rsi_sma
+[0m12:48:28.780212 [debug] [Thread-4 (]: Began running node model.portfolio_project_2.int__rsi_wilder
+[0m12:48:28.780700 [info ] [Thread-4 (]: 4 of 5 START sql view model analytics_dev.int__rsi_wilder ...................... [RUN]
+[0m12:48:28.781517 [debug] [Thread-4 (]: Acquiring new duckdb connection 'model.portfolio_project_2.int__rsi_wilder'
+[0m12:48:28.781888 [debug] [Thread-4 (]: Began compiling node model.portfolio_project_2.int__rsi_wilder
+[0m12:48:28.784841 [debug] [Thread-4 (]: Writing injected SQL for node "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.785748 [debug] [Thread-4 (]: Began executing node model.portfolio_project_2.int__rsi_wilder
+[0m12:48:28.788832 [debug] [Thread-4 (]: Writing runtime sql for node "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.789709 [debug] [Thread-4 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.790130 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: BEGIN
+[0m12:48:28.790468 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m12:48:28.791673 [debug] [Thread-4 (]: SQL status: OK in 0.001 seconds
+[0m12:48:28.792033 [debug] [Thread-4 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.792412 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_wilder"} */
+
+  
+  create view "finance"."analytics_dev"."int__rsi_wilder__dbt_tmp" as (
+    with RECURSIVE wilder as (
+    -- seed row: first complete window per ticker
+    select
+        r.ticker,
+        r.rn,
+        r.trade_date,
+        r.gain,
+        r.loss,
+        r.sma_gain as wilder_gain,
+        r.sma_loss as wilder_loss
+    from "finance"."analytics_dev"."int__rsi_sma" r
+    where r.rn = 14
+
+    union all
+
+    -- recursive step: carry previous wilder_* forward
+    select
+        nxt.ticker,
+        nxt.rn,
+        nxt.trade_date,
+        nxt.gain,
+        nxt.loss,
+        (prev.wilder_gain * 13 + nxt.gain) / 14.0 as wilder_gain,
+        (prev.wilder_loss * 13 + nxt.loss) / 14.0 as wilder_loss
+    from "finance"."analytics_dev"."int__rsi_sma" nxt
+    join wilder prev
+      on nxt.ticker = prev.ticker
+     and nxt.rn = prev.rn + 1
+)
+
+select
+    ticker::text as ticker,
+    rn::int as rn,
+    trade_date::date as trade_date,
+    gain::decimal as gain,
+    loss::decimal as loss,
+    wilder_gain::decimal as wilder_gain,
+    wilder_loss::decimal as wilder_loss
+from wilder
+  );
+
+[0m12:48:28.891238 [debug] [Thread-4 (]: SQL status: OK in 0.098 seconds
+[0m12:48:28.893931 [debug] [Thread-4 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.894317 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_wilder"} */
+alter view "finance"."analytics_dev"."int__rsi_wilder" rename to "int__rsi_wilder__dbt_backup"
+[0m12:48:28.944513 [debug] [Thread-4 (]: SQL status: OK in 0.050 seconds
+[0m12:48:28.947115 [debug] [Thread-4 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.947495 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_wilder"} */
+alter view "finance"."analytics_dev"."int__rsi_wilder__dbt_tmp" rename to "int__rsi_wilder"
+[0m12:48:28.986895 [debug] [Thread-4 (]: SQL status: OK in 0.039 seconds
+[0m12:48:28.988243 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: COMMIT
+[0m12:48:28.988623 [debug] [Thread-4 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:28.988969 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: COMMIT
+[0m12:48:29.069070 [debug] [Thread-4 (]: SQL status: OK in 0.080 seconds
+[0m12:48:29.071531 [debug] [Thread-4 (]: Using duckdb connection "model.portfolio_project_2.int__rsi_wilder"
+[0m12:48:29.071899 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.int__rsi_wilder"} */
+
+      drop view if exists "finance"."analytics_dev"."int__rsi_wilder__dbt_backup" cascade
+    
+[0m12:48:29.166151 [debug] [Thread-4 (]: SQL status: OK in 0.094 seconds
+[0m12:48:29.167505 [debug] [Thread-4 (]: On model.portfolio_project_2.int__rsi_wilder: Close
+[0m12:48:29.168011 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E5F5010>]}
+[0m12:48:29.168581 [info ] [Thread-4 (]: 4 of 5 OK created sql view model analytics_dev.int__rsi_wilder ................. [[32mOK[0m in 0.39s]
+[0m12:48:29.169413 [debug] [Thread-4 (]: Finished running node model.portfolio_project_2.int__rsi_wilder
+[0m12:48:29.170182 [debug] [Thread-1 (]: Began running node model.portfolio_project_2.fct__rsi
+[0m12:48:29.170846 [info ] [Thread-1 (]: 5 of 5 START sql view model analytics_dev.fct__rsi ............................. [RUN]
+[0m12:48:29.171597 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.portfolio_project_2.src_stocks, now model.portfolio_project_2.fct__rsi)
+[0m12:48:29.171952 [debug] [Thread-1 (]: Began compiling node model.portfolio_project_2.fct__rsi
+[0m12:48:29.174836 [debug] [Thread-1 (]: Writing injected SQL for node "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.175780 [debug] [Thread-1 (]: Began executing node model.portfolio_project_2.fct__rsi
+[0m12:48:29.178741 [debug] [Thread-1 (]: Writing runtime sql for node "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.179596 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.179975 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: BEGIN
+[0m12:48:29.180307 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m12:48:29.181587 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m12:48:29.181942 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.182340 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.fct__rsi"} */
+
+  
+  create view "finance"."analytics_dev"."fct__rsi__dbt_tmp" as (
+    with sma as (
+select
+    trade_date,
+    ticker,
+    gain,
+    loss,
+    sma_gain,
+    sma_loss, 
+    period_check
+from "finance"."analytics_dev"."int__rsi_sma" 
+), 
+
+wilder_sma as (
+select
+    ticker,
+    rn,
+    trade_date,
+    gain,
+    loss,
+    wilder_gain,
+    wilder_loss
+from "finance"."analytics_dev"."int__rsi_wilder"
+),
+
+rsi as (
+    select
+        s.trade_date,
+        s.ticker,
+        (s.sma_gain / nullif(s.sma_loss,0)) as sma_rs,
+        100 - (100 / (1 + (s.sma_gain / nullif(s.sma_loss,0)))) as sma_rsi,
+        (case 
+            when ws.wilder_loss = 0 and ws.wilder_gain > 0 then 100
+            when ws.wilder_loss > 0 and ws.wilder_gain =  0 then 0
+            else (ws.wilder_gain / nullif(ws.wilder_loss,0))
+        end) as wilder_rs,
+        (case 
+        when ws.wilder_loss = 0 and ws.wilder_gain > 0 then 100
+        when ws.wilder_loss > 0 and ws.wilder_gain =  0 then 0
+        else 100 - (100 / (1 + (ws.wilder_gain / nullif(ws.wilder_loss,0)))) 
+        end) as wilder_rsi, 
+        s.period_check                
+    from sma s
+    left join wilder_sma ws on s.trade_date = s.trade_date and s.ticker = ws.ticker
+), 
+
+final as ( 
+    select 
+        trade_date,
+        ticker,
+        (case when period_check < 14 then null else sma_rs end) as sma_rs, 
+        (case when period_check < 14 then null else sma_rsi end) as sma_rsi, 
+        (case when period_check < 14 then null else wilder_rs end) as wilder_rs, 
+        (case when period_check < 14 then null else wilder_rsi end) as wilder_rsi, 
+    from rsi 
+    )
+
+select
+    trade_date::date as trade_date,
+    ticker::text as ticker,
+    sma_rs::decimal as sma_rs, 
+    sma_rsi::decimal as sma_rsi, 
+    wilder_rs::decimal as wilder_rs, 
+    wilder_rsi::decimal as wilder_rsi
+from final
+  );
+
+[0m12:48:29.286313 [debug] [Thread-1 (]: SQL status: OK in 0.103 seconds
+[0m12:48:29.288946 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.289322 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.fct__rsi"} */
+alter view "finance"."analytics_dev"."fct__rsi" rename to "fct__rsi__dbt_backup"
+[0m12:48:29.373810 [debug] [Thread-1 (]: SQL status: OK in 0.084 seconds
+[0m12:48:29.376469 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.376866 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.fct__rsi"} */
+alter view "finance"."analytics_dev"."fct__rsi__dbt_tmp" rename to "fct__rsi"
+[0m12:48:29.418665 [debug] [Thread-1 (]: SQL status: OK in 0.041 seconds
+[0m12:48:29.420000 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: COMMIT
+[0m12:48:29.420371 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.420744 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: COMMIT
+[0m12:48:29.518868 [debug] [Thread-1 (]: SQL status: OK in 0.098 seconds
+[0m12:48:29.521327 [debug] [Thread-1 (]: Using duckdb connection "model.portfolio_project_2.fct__rsi"
+[0m12:48:29.521698 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "portfolio_project_2", "target_name": "dev", "node_id": "model.portfolio_project_2.fct__rsi"} */
+
+      drop view if exists "finance"."analytics_dev"."fct__rsi__dbt_backup" cascade
+    
+[0m12:48:29.624526 [debug] [Thread-1 (]: SQL status: OK in 0.102 seconds
+[0m12:48:29.631111 [debug] [Thread-1 (]: On model.portfolio_project_2.fct__rsi: Close
+[0m12:48:29.631836 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '29d5d14d-0b1e-4c42-960f-43b7dd783c25', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E4D2330>]}
+[0m12:48:29.632464 [info ] [Thread-1 (]: 5 of 5 OK created sql view model analytics_dev.fct__rsi ........................ [[32mOK[0m in 0.46s]
+[0m12:48:29.633389 [debug] [Thread-1 (]: Finished running node model.portfolio_project_2.fct__rsi
+[0m12:48:29.635065 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:48:29.635388 [debug] [MainThread]: On master: BEGIN
+[0m12:48:29.635718 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m12:48:29.637062 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m12:48:29.637408 [debug] [MainThread]: On master: COMMIT
+[0m12:48:29.637711 [debug] [MainThread]: Using duckdb connection "master"
+[0m12:48:29.638004 [debug] [MainThread]: On master: COMMIT
+[0m12:48:29.638679 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m12:48:29.638990 [debug] [MainThread]: On master: Close
+[0m12:48:29.639383 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m12:48:29.639659 [debug] [MainThread]: Connection 'create_finance_analytics_dev' was properly closed.
+[0m12:48:29.639921 [debug] [MainThread]: Connection 'list_finance_analytics_dev' was properly closed.
+[0m12:48:29.640179 [debug] [MainThread]: Connection 'model.portfolio_project_2.fct__rsi' was properly closed.
+[0m12:48:29.640438 [debug] [MainThread]: Connection 'model.portfolio_project_2.int__price_changes' was properly closed.
+[0m12:48:29.640701 [debug] [MainThread]: Connection 'model.portfolio_project_2.int__rsi_sma' was properly closed.
+[0m12:48:29.640957 [debug] [MainThread]: Connection 'model.portfolio_project_2.int__rsi_wilder' was properly closed.
+[0m12:48:29.641302 [info ] [MainThread]: 
+[0m12:48:29.641739 [info ] [MainThread]: Finished running 5 view models in 0 hours 0 minutes and 4.37 seconds (4.37s).
+[0m12:48:29.643581 [debug] [MainThread]: Command end result
+[0m12:48:29.667851 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\manifest.json
+[0m12:48:29.671082 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\semantic_manifest.json
+[0m12:48:29.677536 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2\target\run_results.json
+[0m12:48:29.677920 [info ] [MainThread]: 
+[0m12:48:29.678459 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m12:48:29.678989 [info ] [MainThread]: 
+[0m12:48:29.679614 [info ] [MainThread]: Done. PASS=5 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=5
+[0m12:48:29.680813 [debug] [MainThread]: Command `-c run` succeeded at 12:48:29.680678 after 6.59 seconds
+[0m12:48:29.681216 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39A0F75F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39DAF0E90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002A39E64F830>]}
+[0m12:48:29.681728 [debug] [MainThread]: Flushing usage events
+[0m12:48:30.372312 [debug] [MainThread]: An error was encountered while trying to flush usage events
