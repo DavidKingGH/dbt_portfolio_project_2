@@ -1,0 +1,66 @@
+version: 2
+
+models: 
+
+- name: fct__rsi
+  description: |
+   "calculates relative strength index (rsi) indicator using both 14-day sma and wilder ema.
+   model identifies overbought (>70) and undersold (<30) conditions for each ticker."
+  
+  config:
+    tags: ['gold', 'rsi', 'fact']
+    contract: 
+      enforced: true
+
+  columns: 
+  - name: trade_date
+    description: "market date"
+    data_type: date
+    constraints:
+      - type: not_null
+  - name: ticker
+    description: "symbol"
+    data_type: text
+    constraints:
+      - type: not_null   
+  - name: sma_rs
+    description: |
+      "relative strength (rs) bsaed on 14-day sma. 
+      ratio of average gais to average losses over lookback period"
+    data_type: decimal 
+    data_tests: 
+      - dbt_utils.expression_is_true:
+          expression: ">= 0"
+          where: "sma_rs is not null"
+  - name: sma_rsi
+    description: |
+      "14-day relative strength index (rsi) calculated using sma.
+      normalized to a scale of 0 to 100 to indicate momentum. 
+      values > 70 suggest overbuying; values < 30 suggest overselling."
+    data_type: decimal
+    data_tests:
+      - dbt_expectations.expect_column_values_to_be_between:
+          min_value: 0
+          max_value: 100
+
+  - name: wilder_rs
+    description: |
+      "relative strength (rs) based on the 14-period wilder's smoothing average, 
+      which gives more weight to recent prices. the ratio of the smoothed average gains
+      to smoothed average losses."
+
+    data_type: decimal
+    data_tests:
+      - dbt_utils.expression_is_true:
+          expression: ">= 0"
+          where: "wilder_rs is not null"
+  - name: wilder_rsi
+    description: |
+      "14-day relative strength index (rsi) calculated using wilder's smoothing.
+      normalized to a scale of 0 to 100 to indicate momentum. 
+      values > 70 suggest overbuying; values < 30 suggest overselling."
+    data_type: decimal
+    data_tests:
+      - dbt_expectations.expect_column_values_to_be_between:
+          min_value: 0
+          max_value: 100

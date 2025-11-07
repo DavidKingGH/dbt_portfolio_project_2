@@ -40,7 +40,7 @@ rsi as (
         end) as wilder_rsi, 
         s.period_check                
     from sma s
-    left join wilder_sma ws on s.trade_date = s.trade_date and s.ticker = ws.ticker
+    left join wilder_sma ws on s.trade_date = ws.trade_date and s.ticker = ws.ticker
 ), 
 
 final as ( 

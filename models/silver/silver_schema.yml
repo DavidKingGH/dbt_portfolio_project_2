@@ -3,192 +3,211 @@ version: 2
 models:
 - name: int__price_changes
   description: "..."
+
   data_tests:
-  
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['ticker', 'rn']
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "abs(abs(delta) - (gain + loss)) <= 1e-9"
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "(delta > 0 and gain = delta) or (delta <= 0 and gain = 0)"
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "(delta < 0 and loss = -delta) or (delta >= 0 and loss = 0)"
+
   columns:
     - name: trade_date
-      description: 
+      description: "market date"
       data_tests:
         - not_null
-        - relationships:
-            arguments:
-              to: ref('src_stocks')
-              field: trade_date
+
     - name: ticker
+      description: "symbol"
       data_tests:
         - not_null
-        - relationships:
-            arguments:
-              to: ref('src_stocks')
-              field: ticker
+
     - name: close 
+      description: "session close price"
       data_tests:
         - not_null
+      
     - name: delta
-      data_tests:
-        - not_null
+      description: "close - lag(close); null on the first row per ticker"
+
     - name: gain
+      description: “positive part of delta; max(delta, 0)”
       data_tests: 
         - not_null
+        - dbt_utils.expression_is_true: 
+            arguments: 
+              expression: ">= 0"
+
     - name: loss
+      description: “magnitude of negative delta; max(-delta, 0) (stored as non-negative)”
       data_tests: 
         - not_null
+        - dbt_utils.expression_is_true: 
+            arguments: 
+              expression: ">= 0"
+
     - name: rn
+      description: "sequential number for each trading day within a ticker's history, used for ordering."
       data_tests: 
         - not_null
+
     - name: period_check
-      data_tests: 
-        - not_null
+      description: |
+            "count(*) over(partition by ticker 
+            order by trade_date asc, loaded_at asc 
+            rows between 13 preceding and current row)"
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "between 1 and 14"
+
     - name: loaded_at
-      data_tests: 
+      description: "ingest ts"
+      data_tests:
         - not_null
 
 - name: int__rsi_sma
-  description: '...'
-  data_tests: 
- 
-  columns: 
-    - name: event_id
-      data_tests:
-        - unique
-        - not_null
-        - relationships:
-            arguments:
-              to: ref('fct_events')
-              field: event_id
-    - name: order_date
-      data_tests: 
-        - not_null
-    - name: user_id
-      data_tests:
-        - not_null
-    - name: ga_session_id
-      data_tests:
-        - not_null
-    - name: device_category
-      data_tests:
-        - accepted_values:
-            arguments:
-              values: ['desktop', 'mobile', 'tablet']
-    - name: revenue
-      data_tests:
-        - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">=0"
-    - name: total_items
-      data_tests:
-        - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">= 1" # an order should have at least one item
-    - name: distinct_products
-      data_tests:
-        - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">=0" # an order should have at least one distinct item
-- name: stg__user_sessions
-  description: summarizes the session information for each session for each user.
-  data_tests:
-    - dbt_utils.unique_combination_of_columns:
-        arguments:
-          combination_of_columns: ['user_id', 'ga_session_id']
-    - dbt_utils.expression_is_true:
-        arguments:
-          expression: "session_end_timestamp >= session_start_timestamp"
-  columns:
-    - name: user_id
-      data_tests:
-        - not_null
-        - relationships: 
-            arguments:
-              to: ref('dim_users')
-              field: user_id
-    - name: ga_session_id
-      data_tests: 
-        - not_null
-    - name: session_start_timestamp
-      data_tests: 
-        - not_null
-    - name: session_end_timestamp
-      data_tests: 
-        - not_null
-    - name: device_category
-      data_tests:
-        - not_null
-        - accepted_values:
-            arguments:
-              values: ['desktop', 'mobile', 'tablet']
-    - name: event_count
-      data_tests:
-        - dbt_utils.expression_is_true: 
-            arguments:
-              expression: ">0"
-- name: int__acquisition_touchpoints
-  description: first non-direct touchpoint for each user.
-  columns:
-    - name: user_id
-      data_tests:
-        - unique
-        - not_null
-        - relationships:
-            arguments:
-              field: user_id
-              to: ref('dim_users')
-    - name: session_source
-      data_tests:
-        - not_null
-        - dbt_utils.not_empty_string
-    - name: session_medium
-      data_tests:
-        - not_null
-        - dbt_utils.not_empty_string
-
-- name: int__purchase_touchpoints
-  description: "attribution model linking purchases to marketing touchpoints within 30-day window"
+  description: "rolling 14-row SMA of gain/loss per ticker; inputs from int__price_changes"
   
   data_tests:
     - dbt_utils.unique_combination_of_columns:
-        combination_of_columns: 
-          - purchase_id
-          - touchpoint_timestamp
-          - touchpoint_source
-          - touchpoint_medium
-    
-    - dbt_utils.expression_is_true:
-        name: touchpoints_precede_purchase
         arguments:
-          expression: "touchpoint_timestamp <= purchase_timestamp"
-    
-    - dbt_utils.expression_is_true:
-        name: touchpoints_within_30_days
+          combination_of_columns: ['ticker', 'rn']
+ 
+  columns: 
+    - name: trade_date
+      description: "market date"
+      data_tests: 
+        - not_null
+   
+    - name: ticker
+      description: "symbol"
+      data_tests: 
+        - not_null
+   
+    - name: close
+      description: "session close price"
+      data_tests:
+        - not_null
+   
+    - name: gain
+      description: “positive part of delta; max(delta, 0)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: loss
+      description: “magnitude of negative delta; max(-delta, 0) (stored as non-negative)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: sma_gain
+      description: "avg(gain) over 14-row frame"
+      data_tests:
+        - not_null:
+            config:
+              where: "rn >= 14"
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+              where: "rn >= 14" 
+
+    - name: sma_loss
+      description: "avg(loss) over 14-row frame"
+      data_tests:
+        - not_null:
+            config:
+              where: "rn >= 14"
+        - dbt_utils.expression_is_true:
+            arguments: 
+              expression: ">= 0"
+              where: "rn >= 14"
+
+    - name: rn
+      description: "sequential number for each trading day within a ticker's history, used for ordering."
+      data_tests:
+        - not_null
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+
+    - name: period_check
+      description: |
+        "count(*) over(partition by ticker 
+        order by trade_date asc, loaded_at asc 
+        rows between 13 preceding and current row)"
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "between 1 and 14"
+
+- name: int__rsi_wilder
+  description: "Wilder-smoothed (α = 1/14) averages of gain/loss per ticker; seeded from int__rsi_sma at rn=14."
+  
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
         arguments:
-          expression: "touchpoint_timestamp >= purchase_timestamp - interval '29' day"
+          combination_of_columns: ['ticker', 'rn']
 
-  columns:
-    - name: purchase_id
-      description: "purchase identifier - one purchase can have multiple touchpoints"
-      data_tests:
+  columns:     
+    - name: ticker
+      description: "symbol"
+      data_tests: 
         - not_null
-        - relationships:
-            to: ref('stg__conversion_events')
-            field: purchase_id
-    
-    - name: user_id
-      description: "user who made the purchase"
-      data_tests:
-        - not_null
-    
-    - name: purchase_timestamp
-      description: "when the purchase occurred"
-      data_tests:
-        - not_null
-    
-    - name: touchpoint_timestamp
-      description: "when the marketing touchpoint occurred (within 30 days before purchase)"
-    
-    - name: touchpoint_source
-      description: "marketing source for the touchpoint"
-    
-    - name: touchpoint_medium
-      description: "marketing medium for the touchpoint"
 
-#
+    - name: rn
+      description: "sequential number for each trading day within a ticker's history, used for ordering."
+      data_tests:
+        - not_null
+
+    - name: trade_date
+      description: "market date"
+      data_tests: 
+        - not_null
+   
+    - name: gain
+      description: “positive part of delta; max(delta, 0)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: loss
+      description: “magnitude of negative delta; max(-delta, 0) (stored as non-negative)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: wilder_gain
+      description: "Wilder EMA of gain with α=1/14 (seed = sma_gain at rn=14)"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+
+    - name: wilder_loss
+      description: "Wilder EMA of loss with α=1/14 (seed = sma_loss at rn=14)"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments: 
+              expression: ">= 0"
