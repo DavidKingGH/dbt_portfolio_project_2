@@ -1,0 +1,213 @@
+version: 2
+
+models:
+- name: int__price_changes
+  description: "..."
+
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['ticker', 'rn']
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "abs(abs(delta) - (gain + loss)) <= 1e-9"
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "(delta > 0 and gain = delta) or (delta <= 0 and gain = 0)"
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "(delta < 0 and loss = -delta) or (delta >= 0 and loss = 0)"
+
+  columns:
+    - name: trade_date
+      description: "market date"
+      data_tests:
+        - not_null
+
+    - name: ticker
+      description: "symbol"
+      data_tests:
+        - not_null
+
+    - name: close 
+      description: "session close price"
+      data_tests:
+        - not_null
+      
+    - name: delta
+      description: "close - lag(close); null on the first row per ticker"
+
+    - name: gain
+      description: “positive part of delta; max(delta, 0)”
+      data_tests: 
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments: 
+              expression: ">= 0"
+
+    - name: loss
+      description: “magnitude of negative delta; max(-delta, 0) (stored as non-negative)”
+      data_tests: 
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments: 
+              expression: ">= 0"
+
+    - name: rn
+      description: "sequential number for each trading day within a ticker's history, used for ordering."
+      data_tests: 
+        - not_null
+
+    - name: period_check
+      description: |
+            "count(*) over(partition by ticker 
+            order by trade_date asc, loaded_at asc 
+            rows between 13 preceding and current row)"
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "between 1 and 14"
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+
+- name: int__rsi_sma
+  description: "rolling 14-row SMA of gain/loss per ticker; inputs from int__price_changes"
+  
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['ticker', 'rn']
+ 
+  columns: 
+    - name: trade_date
+      description: "market date"
+      data_tests: 
+        - not_null
+   
+    - name: ticker
+      description: "symbol"
+      data_tests: 
+        - not_null
+   
+    - name: close
+      description: "session close price"
+      data_tests:
+        - not_null
+   
+    - name: gain
+      description: “positive part of delta; max(delta, 0)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: loss
+      description: “magnitude of negative delta; max(-delta, 0) (stored as non-negative)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: sma_gain
+      description: "avg(gain) over 14-row frame"
+      data_tests:
+        - not_null:
+            config:
+              where: "rn >= 14"
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+              where: "rn >= 14" 
+
+    - name: sma_loss
+      description: "avg(loss) over 14-row frame"
+      data_tests:
+        - not_null:
+            config:
+              where: "rn >= 14"
+        - dbt_utils.expression_is_true:
+            arguments: 
+              expression: ">= 0"
+              where: "rn >= 14"
+
+    - name: rn
+      description: "sequential number for each trading day within a ticker's history, used for ordering."
+      data_tests:
+        - not_null
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+
+    - name: period_check
+      description: |
+        "count(*) over(partition by ticker 
+        order by trade_date asc, loaded_at asc 
+        rows between 13 preceding and current row)"
+      data_tests:
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "between 1 and 14"
+
+- name: int__rsi_wilder
+  description: "Wilder-smoothed (α = 1/14) averages of gain/loss per ticker; seeded from int__rsi_sma at rn=14."
+  
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['ticker', 'rn']
+
+  columns:     
+    - name: ticker
+      description: "symbol"
+      data_tests: 
+        - not_null
+
+    - name: rn
+      description: "sequential number for each trading day within a ticker's history, used for ordering."
+      data_tests:
+        - not_null
+
+    - name: trade_date
+      description: "market date"
+      data_tests: 
+        - not_null
+   
+    - name: gain
+      description: “positive part of delta; max(delta, 0)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: loss
+      description: “magnitude of negative delta; max(-delta, 0) (stored as non-negative)”
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: wilder_gain
+      description: "Wilder EMA of gain with α=1/14 (seed = sma_gain at rn=14)"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+
+    - name: wilder_loss
+      description: "Wilder EMA of loss with α=1/14 (seed = sma_loss at rn=14)"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments: 
+              expression: ">= 0"
