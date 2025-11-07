@@ -5308,3 +5308,50 @@ alter view "finance"."analytics_dev"."fct__rsi__dbt_tmp" rename to "fct__rsi"
 [0m12:43:01.586068 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014020148DD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014022BDFD10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014022BDF7D0>]}
 [0m12:43:01.586422 [debug] [MainThread]: Flushing usage events
 [0m12:43:02.292486 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m13:38:21.957046 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8DF6B8050>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8DFEC42D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8E0503ED0>]}
+
+
+============================== 13:38:21.961552 | 942553ef-0a93-41b1-9e6f-88e5ed65ca6e ==============================
+[0m13:38:21.961552 [info ] [MainThread]: Running with dbt=1.10.13
+[0m13:38:21.962517 [debug] [MainThread]: running dbt with arguments {'use_colors': 'True', 'write_json': 'True', 'cache_selected_only': 'False', 'no_print': 'None', 'log_format': 'default', 'warn_error': 'None', 'log_path': 'C:\\Users\\David\\Downloads\\Coding_Projects\\dbt\\portfolio\\portfolio_project_2\\logs', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'indirect_selection': 'eager', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'use_experimental_parser': 'False', 'version_check': 'True', 'introspect': 'True', 'quiet': 'False', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'profiles_dir': 'C:\\Users\\David\\.dbt', 'invocation_command': 'dbt deps', 'printer_width': '80', 'target_path': 'None'}
+[0m13:38:22.107680 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '942553ef-0a93-41b1-9e6f-88e5ed65ca6e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8DF870180>]}
+[0m13:38:22.136436 [debug] [MainThread]: Set downloads directory='C:\Users\David\AppData\Local\Temp\dbt-downloads-szcmxnzx'
+[0m13:38:22.136994 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m13:38:22.715103 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m13:38:22.716563 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m13:38:23.221100 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m13:38:23.233528 [info ] [MainThread]: Updating lock file in file path: C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2/package-lock.yml
+[0m13:38:23.244030 [debug] [MainThread]: Set downloads directory='C:\Users\David\AppData\Local\Temp\dbt-downloads-z8qfqz3l'
+[0m13:38:23.247276 [info ] [MainThread]: Installing dbt-labs/dbt_utils
+[0m13:38:24.079550 [info ] [MainThread]: Installed from version 1.3.1
+[0m13:38:24.080079 [info ] [MainThread]: Updated version available: 1.3.2
+[0m13:38:24.080553 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'package', 'label': '942553ef-0a93-41b1-9e6f-88e5ed65ca6e', 'property_': 'install', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8E03AA580>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8E03AAF10>]}
+[0m13:38:24.080947 [info ] [MainThread]: 
+[0m13:38:24.081369 [info ] [MainThread]: Updates available for packages: ['dbt-labs/dbt_utils']                 
+Update your versions in packages.yml, then run dbt deps
+[0m13:38:24.083015 [debug] [MainThread]: Command `-c deps` succeeded at 13:38:24.082873 after 2.30 seconds
+[0m13:38:24.083417 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8E178CD50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8DFDF4C80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E8E0395040>]}
+[0m13:38:24.083777 [debug] [MainThread]: Flushing usage events
+[0m13:38:24.746088 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m13:38:55.941021 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD6703C050>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD678442D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD67E87ED0>]}
+
+
+============================== 13:38:55.945622 | e0705e42-2d08-41fd-b776-837ff0743a81 ==============================
+[0m13:38:55.945622 [info ] [MainThread]: Running with dbt=1.10.13
+[0m13:38:55.946343 [debug] [MainThread]: running dbt with arguments {'invocation_command': 'dbt deps', 'cache_selected_only': 'False', 'no_print': 'None', 'profiles_dir': 'C:\\Users\\David\\.dbt', 'write_json': 'True', 'warn_error': 'None', 'log_path': 'C:\\Users\\David\\Downloads\\Coding_Projects\\dbt\\portfolio\\portfolio_project_2\\logs', 'partial_parse': 'True', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'fail_fast': 'False', 'version_check': 'True', 'use_experimental_parser': 'False', 'introspect': 'True', 'quiet': 'False', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'log_format': 'default', 'use_colors': 'True', 'printer_width': '80', 'target_path': 'None'}
+[0m13:38:56.088908 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'e0705e42-2d08-41fd-b776-837ff0743a81', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD671F0180>]}
+[0m13:38:56.121229 [debug] [MainThread]: Set downloads directory='C:\Users\David\AppData\Local\Temp\dbt-downloads-gjl388uo'
+[0m13:38:56.121764 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m13:38:56.840248 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m13:38:56.841654 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m13:38:57.451490 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m13:38:57.462286 [info ] [MainThread]: Updating lock file in file path: C:\Users\David\Downloads\Coding_Projects\dbt\portfolio\portfolio_project_2/package-lock.yml
+[0m13:38:57.527712 [debug] [MainThread]: Set downloads directory='C:\Users\David\AppData\Local\Temp\dbt-downloads-1r869tt3'
+[0m13:38:57.531087 [info ] [MainThread]: Installing dbt-labs/dbt_utils
+[0m13:38:58.544608 [info ] [MainThread]: Installed from version 1.3.2
+[0m13:38:58.545139 [info ] [MainThread]: Up to date!
+[0m13:38:58.545642 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'package', 'label': 'e0705e42-2d08-41fd-b776-837ff0743a81', 'property_': 'install', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD67D2A580>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD67D2AF10>]}
+[0m13:38:58.547199 [debug] [MainThread]: Command `-c deps` succeeded at 13:38:58.547064 after 2.75 seconds
+[0m13:38:58.547569 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD690D8D50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD67D19040>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DD67D1B6B0>]}
+[0m13:38:58.547971 [debug] [MainThread]: Flushing usage events
+[0m13:38:59.174887 [debug] [MainThread]: An error was encountered while trying to flush usage events
