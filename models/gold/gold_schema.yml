@@ -90,7 +90,7 @@ models:
               expression: "<= current_date"
         - relationships:
             arguments:
-              to: ref('src_stocks')
+              to: ref('stg__stocks')
               field: trade_date
 
     - name: ticker
@@ -150,19 +150,3 @@ models:
             arguments: 
               values: ['complacent', 'normal', 'elevated', 'crisis']
 
-    - name: regime_period_id
-      description: |
-        "unique int value assigned to each range of VIX trade_dates under the same regime
-         classification. sequential numbering based on chronological order."
-      constraints: 
-        - type: unique
-        - type: not_null
-    
-    - name: regime_period_id
-      description: |
-        "unique int value assigned to each range of VIX trade_dates under the same regime
-         classification. sequential numbering based on chronological order."
-      data_type: int
-      constraints: 
-        - type: unique
-        - type: not_null

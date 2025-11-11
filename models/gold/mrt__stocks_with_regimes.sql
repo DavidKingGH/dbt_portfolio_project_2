@@ -2,7 +2,7 @@
   config(
     materialized = 'incremental',
     unique_key = ['trade_date', 'ticker'],
-    incremental_strategy = 'merge',
+    incremental_strategy = 'append',
     on_schema_change = 'append_new_columns'
     
   )
@@ -43,9 +43,8 @@ select
     s.low::decimal(18,2) as low, 
     s."close"::decimal(18,2) as "close", 
     s.volume::decimal(18,0) as volume, 
-    r.regime::text as regime,
-    r.regime_period_id::int as regime_period_id 
+    r.regime::text as regime
 from src_stocks s
-left join regimes r on s.trade_date BETWEEN r."start_date" and coalesce(r.end_date, '9999-12-31')
+left join regimes r on s.trade_date BETWEEN r."start_date" and coalesce(r.end_date, date '9999-12-31')
 
     
