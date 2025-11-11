@@ -1,0 +1,8 @@
+snapshots:
+  - name: regime_classification_snapshot
+    relation: ref('int__regime_classification')
+    config:
+      schema: snapshots
+      unique_key: trade_date
+      strategy: timestamp
+      updated_at: loaded_at

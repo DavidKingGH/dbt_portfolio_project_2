@@ -57,8 +57,8 @@ final as (
 select
     trade_date::date as trade_date,
     ticker::text as ticker,
-    sma_rs::decimal as sma_rs, 
-    sma_rsi::decimal as sma_rsi, 
-    wilder_rs::decimal as wilder_rs, 
-    wilder_rsi::decimal as wilder_rsi
+    sma_rs::decimal(18,2) as sma_rs, 
+    sma_rsi::decimal(18,2) as sma_rsi, 
+    wilder_rs::decimal(18,2) as wilder_rs, 
+    wilder_rsi::decimal(18,2) as wilder_rsi
 from final

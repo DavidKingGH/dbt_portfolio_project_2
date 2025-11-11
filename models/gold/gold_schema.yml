@@ -27,7 +27,7 @@ models:
     description: |
       "relative strength (rs) bsaed on 14-day sma. 
       ratio of average gais to average losses over lookback period"
-    data_type: decimal 
+    data_type: decimal(18,2) 
     data_tests: 
       - dbt_utils.expression_is_true:
           expression: ">= 0"
@@ -37,7 +37,7 @@ models:
       "14-day relative strength index (rsi) calculated using sma.
       normalized to a scale of 0 to 100 to indicate momentum. 
       values > 70 suggest overbuying; values < 30 suggest overselling."
-    data_type: decimal
+    data_type: decimal(18,2)
     data_tests:
       - dbt_expectations.expect_column_values_to_be_between:
           min_value: 0
@@ -49,7 +49,7 @@ models:
       which gives more weight to recent prices. the ratio of the smoothed average gains
       to smoothed average losses."
 
-    data_type: decimal
+    data_type: decimal(18,2)
     data_tests:
       - dbt_utils.expression_is_true:
           expression: ">= 0"
@@ -59,8 +59,94 @@ models:
       "14-day relative strength index (rsi) calculated using wilder's smoothing.
       normalized to a scale of 0 to 100 to indicate momentum. 
       values > 70 suggest overbuying; values < 30 suggest overselling."
-    data_type: decimal
+    data_type: decimal(18,2)
     data_tests:
       - dbt_expectations.expect_column_values_to_be_between:
           min_value: 0
           max_value: 100
+- name: mrt__stocks_with_regimes
+  description: |
+   "enriched fact model which tags daily stock closing valuations with vix volatility regime classifications"
+  
+  config:
+    tags: ['gold', 'vix', 'fact']
+    contract: 
+      enforced: true
+  
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['trade_date', 'ticker']
+
+  columns:
+    - name: trade_date
+      description: "market date"
+      data_type: date 
+      constraints:
+        - type: not_null
+      data_tests:
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_date"
+        - relationships:
+            arguments:
+              to: ref('stg__stocks')
+              field: trade_date
+
+    - name: ticker
+      description: "symbol"
+      data_type: text
+      constraints: 
+        - type: not_null
+
+    - name: open
+      description: "sessions opening price"
+      data_type: decimal(18,2)
+      constraints: 
+      - type: not_null
+      data_tests: 
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: high
+      description: "session high price"
+      data_type: decimal(18,2)
+      constraints: 
+      - type: not_null
+
+    - name: low
+      description: "sessions low price"
+      data_type: decimal(18,2)
+      constraints: 
+      - type: not_null
+
+    - name: close
+      description: "session closing price"
+      data_type: decimal(18,2)
+
+    - name: volume
+      description: "total shares traded during session"
+      data_type: decimal(18,0)
+      constraints:
+        - type: not_null
+      data_tests: 
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: regime
+      description: |
+        market volatility classification based on VIX close:
+        - complacent: very low volatility (VIX < 12)
+        - normal: typical conditions (VIX 12-20)
+        - elevated: increased uncertainty (VIX 20-30)
+        - crisis: extreme volatility (VIX 30+)
+      data_type: text
+      constraints: 
+        - type: not_null
+      data_tests:
+        - accepted_values: 
+            arguments: 
+              values: ['complacent', 'normal', 'elevated', 'crisis']
+

@@ -1,6 +1,86 @@
 version: 2
 
 models:
+
+- name: stg__stocks
+  description: | 
+    "cleans raw stock data to remove null values (closed trading days)
+     and assert positive stock price values"
+  
+  data_tests:
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "close >= low and close <= high"
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "open >= low and open <= high"
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['trade_date', 'ticker']
+
+  columns:
+    - name: trade_date
+      description: "market date"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_date"
+
+    - name: ticker
+      description: "symbol"
+      data_tests:
+        - not_null
+
+    - name: open
+      description: "sessions opening price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: high
+      description: "session high price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: low
+      description: "sessions low price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: close
+      description: "session closing price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: volume
+      description: "total shares traded during session"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "<= current_timestamp"
+
+
 - name: int__price_changes
   description: "..."
 
@@ -72,6 +152,9 @@ models:
       description: "ingest ts"
       data_tests:
         - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "<= current_timestamp"
 
 - name: int__rsi_sma
   description: "rolling 14-row SMA of gain/loss per ticker; inputs from int__price_changes"
@@ -144,6 +227,9 @@ models:
       description: "ingest ts"
       data_tests:
         - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_timestamp"
 
     - name: period_check
       description: |
@@ -211,3 +297,166 @@ models:
         - dbt_utils.expression_is_true:
             arguments: 
               expression: ">= 0"
+
+- name: stg__vix_with_versions
+  description: |
+      staging model that joins VIX source data with threshold versions,
+      enabling efficient updating of regime ranges and versioning.
+
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['trade_date', 'version_id']
+
+  columns:
+    - name: trade_date
+      description: "market date; primary key" 
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_date"
+
+
+    - name: close 
+      description: "VIX session close price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "> 0"
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_timestamp"
+
+    - name: version_id
+      description: "threshold version id from seed file"
+      data_tests: 
+        - not_null
+
+    - name: version_name
+      description: "threshold version descriptive name"
+      data_tests: 
+        - not_null
+
+    - name: complacent_max
+      description: "upper bound for complacent regime"
+      data_tests: 
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "< normal_max AND  normal_max < elevated_max"
+
+    - name: normal_max
+      description: "upper bound for normal regime"
+      data_tests: 
+        - not_null
+
+    - name: elevated_max
+      description: "upper bound for elevated regime"
+      data_tests: 
+        - not_null
+
+    - name: effective_date
+      description: "date which VIX regime classification ranges were last modified"
+      data_tests: 
+        - not_null
+
+    - name: version_rank
+      description: "int value in which '1' for the represents the version with the most recent 'effective_date'"
+      data_tests: 
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 1"
+
+- name: int__regime_classification
+  description: |
+   "assigns regime classifications to the VIX closing values 
+   using the most recent applicable threshold version"
+
+  columns:
+    - name: trade_date
+      description: "market date; primary key" 
+      data_tests:
+        - unique
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_date"
+        - relationships:
+            arguments:
+              to: ref('stg__vix_with_versions')
+              field: trade_date
+
+              
+    - name: close 
+      description: "VIX session close price"
+      data_tests:
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "> 0"
+    - name: regime
+      description: |
+        market volatility classification based on VIX close:
+        - complacent: very low volatility (VIX < 12)
+        - normal: typical conditions (VIX 12-20)
+        - elevated: increased uncertainty (VIX 20-30)
+        - crisis: extreme volatility (VIX 30+)
+      data_tests: 
+        - not_null
+        - accepted_values: 
+            arguments: 
+              values: ['complacent', 'normal', 'elevated', 'crisis']
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:  
+              expression: "<= current_timestamp"
+- name: int__regime_changes
+  description: |
+   "dimension table tracking regime period - consecutive trading days 
+   where VIX maintained the same volatility classification."
+  
+  columns: 
+    - name: regime
+      description: "market volatility classification"
+      data_tests: 
+        - not_null
+        - accepted_values: 
+            arguments: 
+              values: ['complacent', 'normal', 'elevated', 'crisis']
+    - name: regime_period_id
+      description: |
+        "unique int value assigned to each range of VIX trade_dates under the same regime
+         classification. sequential numbering based on chronological order."
+      data_tests: 
+        - unique
+        - not_null
+    - name: days_in_regime
+      description: |
+       "int value count of the trading days in this regime period."
+      data_tests: 
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+    - name: start_date
+      description: "first trading day of this regime period"
+      data_tests: 
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "<= end_date"
+    - name: end_date
+      description: "last trading day of this regime period"
+      data_tests: 
+        - not_null

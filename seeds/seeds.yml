@@ -1,0 +1,11 @@
+seeds:
+  - name: regime_thresholds
+    columns:
+      - name: version_id
+        tests:
+          - unique
+          - not_null
+      - name: effective_date
+        tests:
+          - unique
+          - not_null
