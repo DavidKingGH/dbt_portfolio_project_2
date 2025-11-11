@@ -38,12 +38,12 @@ rsi_sma as (
 select
     trade_date::date as trade_date,
     ticker::text as ticker,
-    "close"::decimal as "close",
-    delta::decimal as delta,
-    gain::decimal as gain,
-    loss::decimal as loss,
-    sma_gain::decimal as sma_gain,
-    sma_loss::decimal as sma_loss,
+    "close"::decimal(18,2) as "close",
+    delta::decimal(18,2) as delta,
+    gain::decimal(18,2) as gain,
+    loss::decimal(18,2) as loss,
+    sma_gain::decimal(18,2) as sma_gain,
+    sma_loss::decimal(18,2) as sma_loss,
     rn::int as rn,
     loaded_at::timestamp as loaded_at,
     period_check::int as period_check

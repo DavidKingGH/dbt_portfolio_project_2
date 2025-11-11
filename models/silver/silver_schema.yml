@@ -1,6 +1,86 @@
 version: 2
 
 models:
+
+- name: stg__stocks
+  description: | 
+    "cleans raw stock data to remove null values (closed trading days)
+     and assert positive stock price values"
+  
+  data_tests:
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "close >= low and close <= high"
+    - dbt_utils.expression_is_true:
+        arguments:
+          expression: "open >= low and open <= high"
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns: ['trade_date', 'ticker']
+
+  columns:
+    - name: trade_date
+      description: "market date"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_date"
+
+    - name: ticker
+      description: "symbol"
+      data_tests:
+        - not_null
+
+    - name: open
+      description: "sessions opening price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: high
+      description: "session high price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: low
+      description: "sessions low price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: close
+      description: "session closing price"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: volume
+      description: "total shares traded during session"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: ">= 0"
+
+    - name: loaded_at
+      description: "ingest ts"
+      data_tests:
+        - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "<= current_timestamp"
+
+
 - name: int__price_changes
   description: "..."
 
@@ -72,6 +152,9 @@ models:
       description: "ingest ts"
       data_tests:
         - not_null
+        - dbt_utils.expression_is_true:
+            arguments:
+              expression: "<= current_timestamp"
 
 - name: int__rsi_sma
   description: "rolling 14-row SMA of gain/loss per ticker; inputs from int__price_changes"
@@ -144,6 +227,9 @@ models:
       description: "ingest ts"
       data_tests:
         - not_null
+        - dbt_utils.expression_is_true: 
+            arguments:
+              expression: "<= current_timestamp"
 
     - name: period_check
       description: |
@@ -246,7 +332,7 @@ models:
         - not_null
         - dbt_utils.expression_is_true: 
             arguments:
-              expression: "<= current_date"
+              expression: "<= current_timestamp"
 
     - name: version_id
       description: "threshold version id from seed file"
@@ -264,7 +350,7 @@ models:
         - not_null
         - dbt_utils.expression_is_true: 
             arguments:
-              expression: "complacent_max < normal_max AND  normal_max < elevated_max"
+              expression: "< normal_max AND  normal_max < elevated_max"
 
     - name: normal_max
       description: "upper bound for normal regime"
@@ -307,11 +393,11 @@ models:
             arguments:
               to: ref('stg__vix_with_versions')
               field: trade_date
-              where: "version_rank = 1"
+
+              
     - name: close 
       description: "VIX session close price"
       data_tests:
-        - not_null
         - dbt_utils.expression_is_true: 
             arguments:
               expression: "> 0"
@@ -326,7 +412,7 @@ models:
         - not_null
         - accepted_values: 
             arguments: 
-              values: ['complacent', 'normal', 'elevated', 'crises']
+              values: ['complacent', 'normal', 'elevated', 'crisis']
 
     - name: loaded_at
       description: "ingest ts"
@@ -334,7 +420,7 @@ models:
         - not_null
         - dbt_utils.expression_is_true:
             arguments:  
-              expression: "<= current_date"
+              expression: "<= current_timestamp"
 - name: int__regime_changes
   description: |
    "dimension table tracking regime period - consecutive trading days 
@@ -369,7 +455,7 @@ models:
         - not_null
         - dbt_utils.expression_is_true:
             arguments:
-              expression: "start_date <= end_date"
+              expression: "<= end_date"
     - name: end_date
       description: "last trading day of this regime period"
       data_tests: 

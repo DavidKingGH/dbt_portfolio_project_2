@@ -27,7 +27,7 @@ models:
     description: |
       "relative strength (rs) bsaed on 14-day sma. 
       ratio of average gais to average losses over lookback period"
-    data_type: decimal 
+    data_type: decimal(18,2) 
     data_tests: 
       - dbt_utils.expression_is_true:
           expression: ">= 0"
@@ -37,7 +37,7 @@ models:
       "14-day relative strength index (rsi) calculated using sma.
       normalized to a scale of 0 to 100 to indicate momentum. 
       values > 70 suggest overbuying; values < 30 suggest overselling."
-    data_type: decimal
+    data_type: decimal(18,2)
     data_tests:
       - dbt_expectations.expect_column_values_to_be_between:
           min_value: 0
@@ -49,7 +49,7 @@ models:
       which gives more weight to recent prices. the ratio of the smoothed average gains
       to smoothed average losses."
 
-    data_type: decimal
+    data_type: decimal(18,2)
     data_tests:
       - dbt_utils.expression_is_true:
           expression: ">= 0"
@@ -59,7 +59,7 @@ models:
       "14-day relative strength index (rsi) calculated using wilder's smoothing.
       normalized to a scale of 0 to 100 to indicate momentum. 
       values > 70 suggest overbuying; values < 30 suggest overselling."
-    data_type: decimal
+    data_type: decimal(18,2)
     data_tests:
       - dbt_expectations.expect_column_values_to_be_between:
           min_value: 0
@@ -101,7 +101,7 @@ models:
 
     - name: open
       description: "sessions opening price"
-      data_type: decimal
+      data_type: decimal(18,2)
       constraints: 
       - type: not_null
       data_tests: 
@@ -111,25 +111,23 @@ models:
 
     - name: high
       description: "session high price"
-      data_type: decimal
+      data_type: decimal(18,2)
       constraints: 
       - type: not_null
 
     - name: low
       description: "sessions low price"
-      data_type: decimal
+      data_type: decimal(18,2)
       constraints: 
       - type: not_null
 
     - name: close
       description: "session closing price"
-      data_type: decimal
-      constraints:
-        - type: not_null
+      data_type: decimal(18,2)
 
     - name: volume
       description: "total shares traded during session"
-      data_type: decimal
+      data_type: decimal(18,0)
       constraints:
         - type: not_null
       data_tests: 
@@ -156,6 +154,15 @@ models:
       description: |
         "unique int value assigned to each range of VIX trade_dates under the same regime
          classification. sequential numbering based on chronological order."
+      constraints: 
+        - type: unique
+        - type: not_null
+    
+    - name: regime_period_id
+      description: |
+        "unique int value assigned to each range of VIX trade_dates under the same regime
+         classification. sequential numbering based on chronological order."
+      data_type: int
       constraints: 
         - type: unique
         - type: not_null

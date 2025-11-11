@@ -3,7 +3,7 @@
     materialized = 'incremental',
     unique_key = ['trade_date', 'ticker'],
     incremental_strategy = 'merge',
-    on_schema_change = 'fail'
+    on_schema_change = 'append_new_columns'
     
   )
 }}
@@ -28,26 +28,22 @@ src_stocks as (
         high, 
         low, 
         "close", 
-        volume, 
-    from {{ ref("src_stocks") }}
-    where 1 = 1 
-        and "close" > 0
-        and volume >= 0
-        and trade_date <= current_date
-        {% if is_incremental() %}
-        and trade_date > (select max(trade_date) from {{ this }})
-        {% endif %}
+        volume
+    from {{ ref("stg__stocks") }}
+    {% if is_incremental() %}
+    where trade_date > (select max(trade_date) from {{ this }})
+    {% endif %}
 )
 
 select
     s.trade_date::date as trade_date, 
     s.ticker::text as ticker, 
-    s."open"::decimal as "open", 
-    s.high::decimal as high, 
-    s.low::decimal as low, 
-    s."close"::decimal as "close", 
-    s.volume::decimal as volume, 
-    r.regime::text as regime
+    s."open"::decimal(18,2) as "open", 
+    s.high::decimal(18,2) as high, 
+    s.low::decimal(18,2) as low, 
+    s."close"::decimal(18,2) as "close", 
+    s.volume::decimal(18,0) as volume, 
+    r.regime::text as regime,
     r.regime_period_id::int as regime_period_id 
 from src_stocks s
 left join regimes r on s.trade_date BETWEEN r."start_date" and coalesce(r.end_date, '9999-12-31')

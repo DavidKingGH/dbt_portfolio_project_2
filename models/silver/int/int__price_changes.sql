@@ -4,7 +4,7 @@ with base as (
         ticker,
         "close",
         loaded_at
-    from {{ ref("src_stocks")}}
+    from {{ ref("stg__stocks")}}
 ),
 
 delta as (
@@ -39,10 +39,10 @@ final as (
 select
     trade_date::date as trade_date,
     ticker::text as ticker,
-    "close"::decimal as "close",
-    delta::decimal as delta,
-    gain::decimal as gain,
-    loss::decimal as loss,
+    "close"::decimal(18,2) as "close",
+    delta::decimal(18,2) as delta,
+    gain::decimal(18,2) as gain,
+    loss::decimal(18,2) as loss,
     rn::int as rn,
     period_check::int as period_check,
     loaded_at::timestamp as loaded_at

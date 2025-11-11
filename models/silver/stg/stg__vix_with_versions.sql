@@ -30,7 +30,7 @@ vix_with_all_versions as (
 
 select
     trade_date::date as trade_date,
-    "close"::decimal as "close",
+    "close"::decimal(18,2) as "close",
     loaded_at::timestamp as loaded_at,
     version_id::int as version_id,
     version_name::text as version_name,
@@ -40,6 +40,9 @@ select
     effective_date::date as effective_date, 
     version_rank::int as version_rank
 from vix_with_all_versions
-where version_rank = 1
+where 1=1
+    and version_rank = 1
+    and "close" is not null
+
 
 

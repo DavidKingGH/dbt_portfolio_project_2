@@ -28,7 +28,7 @@ final as (
 
 select
     trade_date::date as trade_date,
-    "close"::decimal as "close", 
+    "close"::decimal(18,2) as "close", 
     regime::text as regime, 
     loaded_at::timestamp as loaded_at
 from final

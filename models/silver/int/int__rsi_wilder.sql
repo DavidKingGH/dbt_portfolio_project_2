@@ -32,8 +32,8 @@ select
     ticker::text as ticker,
     rn::int as rn,
     trade_date::date as trade_date,
-    gain::decimal as gain,
-    loss::decimal as loss,
-    wilder_gain::decimal as wilder_gain,
-    wilder_loss::decimal as wilder_loss
+    gain::decimal(18,2) as gain,
+    loss::decimal(18,2) as loss,
+    wilder_gain::decimal(18,2) as wilder_gain,
+    wilder_loss::decimal(18,2) as wilder_loss
 from wilder
