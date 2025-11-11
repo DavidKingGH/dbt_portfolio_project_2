@@ -2,8 +2,8 @@
   config(
     materialized = 'incremental',
     unique_key = ['trade_date', 'ticker'],
-    incremental_strategy = 'append',
-    on_schema_change = 'append_new_columns'
+    incremental_strategy = 'merge',
+    on_schema_change = 'fail'
     
   )
 }}
