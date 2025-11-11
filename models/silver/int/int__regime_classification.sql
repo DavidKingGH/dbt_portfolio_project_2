@@ -8,9 +8,8 @@ with base as (
         complacent_max,
         normal_max,
         elevated_max,
-        effective_date, 
-        version_rank
-    from {{ ref("stg__vix_with_versions")}}
+        effective_date
+from {{ ref("stg__vix_with_versions")}}
 ),
 
 final as (
@@ -18,14 +17,13 @@ final as (
         trade_date, 
         "close", 
         (case 
-            when "close" < complacent_max then 'complacent'
-            when "close" >= complacent_max and close < normal_max then 'normal'
-            when "close" >= normal_max and "close" < elevated_max then 'elevated'
-            when "close" >= elevated_max then 'crises'
+            when "close" <= complacent_max then 'complacent'
+            when "close" > complacent_max and close <= normal_max then 'normal'
+            when "close" > normal_max and "close" <= elevated_max then 'elevated'
+            when "close" > elevated_max then 'crisis'
         end) as regime, 
         loaded_at
     from base b
-    where version_rank = 1
 )
 
 select

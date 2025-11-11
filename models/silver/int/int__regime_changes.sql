@@ -36,7 +36,10 @@ regime_change_count as (
         loaded_at, 
         prev_regime,
         changed,
-        sum(changed) over(order by trade_date asc, loaded_at asc) as regime_period_id
+        sum(changed) over(
+                        order by trade_date asc, loaded_at asc 
+                        rows between unbounded preceding and currnent row
+                        ) as regime_period_id
     from regime_changes
 ), 
 

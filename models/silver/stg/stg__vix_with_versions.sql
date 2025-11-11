@@ -24,7 +24,7 @@ vix_with_all_versions as (
         t.effective_date, 
         row_number() over(partition by v.trade_date order by t.effective_date desc) as version_rank
     from src_vix v
-    left join thresholds t on v.trade_date >= t.effective_date
+    join thresholds t on v.trade_date >= t.effective_date
 
 )
 
@@ -40,5 +40,6 @@ select
     effective_date::date as effective_date, 
     version_rank::int as version_rank
 from vix_with_all_versions
+where version_rank = 1
 
 

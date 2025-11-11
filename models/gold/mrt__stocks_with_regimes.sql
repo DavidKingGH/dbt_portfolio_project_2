@@ -29,7 +29,6 @@ src_stocks as (
         low, 
         "close", 
         volume, 
-        loaded_at
     from {{ ref("src_stocks") }}
     where 1 = 1 
         and "close" > 0
@@ -41,14 +40,15 @@ src_stocks as (
 )
 
 select
-    s.trade_date, 
-    s.ticker, 
-    s."open", 
-    s.high, 
-    s.low, 
-    s."close", 
-    s.volume, 
-    r.regime
+    s.trade_date::date as trade_date, 
+    s.ticker::text as ticker, 
+    s."open"::decimal as "open", 
+    s.high::decimal as high, 
+    s.low::decimal as low, 
+    s."close"::decimal as "close", 
+    s.volume::decimal as volume, 
+    r.regime::text as regime
+    r.regime_period_id::int as regime_period_id 
 from src_stocks s
 left join regimes r on s.trade_date BETWEEN r."start_date" and coalesce(r.end_date, '9999-12-31')
 

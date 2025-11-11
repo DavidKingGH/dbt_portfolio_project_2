@@ -1,0 +1,15 @@
+seeds:
+  - name: regime_thresholds
+    columns:
+      - name: version_id
+        tests:
+          - unique
+          - not_null
+      - name: effective_date
+        tests:
+          - unique
+          - not_null
+      - name: complacent_max
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "complacent_max < normal_max AND normal_max < elevated_max"
