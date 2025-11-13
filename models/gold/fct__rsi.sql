@@ -1,3 +1,13 @@
+{{
+  config(
+    materialized = 'incremental',
+    unique_key = ['trade_date', 'ticker'],
+    incremental_strategy = 'merge',
+    on_schema_change = 'fail'
+    
+  )
+}}
+
 with sma as (
 select
     trade_date,
@@ -7,7 +17,13 @@ select
     sma_gain,
     sma_loss, 
     period_check
-from {{ ref('int__rsi_sma') }} 
+from {{ ref('int__rsi_sma') }}
+{% if is_incremental() %}
+where trade_date >= (
+    select coalesce((max(trade_date) - interval '30 days'), date '1900-01-01')
+    from {{ this }}
+)
+{% endif %}
 ), 
 
 wilder_sma as (
@@ -20,6 +36,12 @@ select
     wilder_gain,
     wilder_loss
 from {{ ref("int__rsi_wilder") }}
+{% if is_incremental() %}
+where trade_date >= (
+    select coalesce((max(trade_date) - interval '30 days'), date '1900-01-01')
+    from {{ this }}
+)
+{% endif %}
 ),
 
 rsi as (

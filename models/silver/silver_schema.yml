@@ -9,14 +9,11 @@ models:
   
   data_tests:
     - dbt_utils.expression_is_true:
-        arguments:
-          expression: "close >= low and close <= high"
+        expression: "close >= low and close <= high"
     - dbt_utils.expression_is_true:
-        arguments:
-          expression: "open >= low and open <= high"
+        expression: "open >= low and open <= high"
     - dbt_utils.unique_combination_of_columns:
-        arguments:
-          combination_of_columns: ['trade_date', 'ticker']
+        combination_of_columns: ['trade_date', 'ticker']
 
   columns:
     - name: trade_date
@@ -24,8 +21,7 @@ models:
       data_tests:
         - not_null
         - dbt_utils.expression_is_true: 
-            arguments:
-              expression: "<= current_date"
+            expression: "<= current_date"
 
     - name: ticker
       description: "symbol"
@@ -37,48 +33,42 @@ models:
       data_tests:
         - not_null
         - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">= 0"
+            expression: ">= 0"
 
     - name: high
       description: "session high price"
       data_tests:
         - not_null
         - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">= 0"
+            expression: ">= 0"
 
     - name: low
       description: "sessions low price"
       data_tests:
         - not_null
         - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">= 0"
+            expression: ">= 0"
 
     - name: close
       description: "session closing price"
       data_tests:
         - not_null
         - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">= 0"
+            expression: ">= 0"
 
     - name: volume
       description: "total shares traded during session"
       data_tests:
         - not_null
         - dbt_utils.expression_is_true:
-            arguments:
-              expression: ">= 0"
+            expression: ">= 0"
 
     - name: loaded_at
       description: "ingest ts"
       data_tests:
         - not_null
         - dbt_utils.expression_is_true:
-            arguments:
-              expression: "<= current_timestamp"
+            expression: "<= current_timestamp"
 
 
 - name: int__price_changes
