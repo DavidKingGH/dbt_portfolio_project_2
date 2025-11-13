@@ -1,0 +1,9 @@
+snapshots:
+  - name: stg__stocks
+    description: "scd-2 history of raw stock prices" 
+    relation: ref('src_stocks')
+    config:
+      schema: snapshots
+      unique_key: ["trade_date", "ticker"]
+      strategy: timestamp
+      updated_at: loaded_at
