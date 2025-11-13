@@ -1,5 +1,5 @@
 snapshots:
-  - name: stg__stocks
+  - name: stg__stocks_snapshot
     description: "scd-2 history of raw stock prices" 
     relation: ref('src_stocks')
     config:
