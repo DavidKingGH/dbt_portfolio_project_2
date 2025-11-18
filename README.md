@@ -32,6 +32,14 @@ This project implements a multi-layered data pipeline that:
 
 ## 🏗️ Architecture
 
+![Tech Stack](assets/tech_stack.png)
+
+**Pipeline Flow:**
+1. **Python (yfinance/FRED)**: Extract stock and VIX data via APIs
+2. **Data Sources**: Yahoo Finance for stocks, FRED for VIX
+3. **dbt + MotherDuck**: Transform raw data into analytics-ready models
+4. **GitHub Actions**: Automated testing and deployment on every commit
+
 ### Data Flow
 ```
 Raw Sources (Yahoo Finance, FRED)
