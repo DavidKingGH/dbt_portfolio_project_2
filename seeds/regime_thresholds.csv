@@ -1,2 +1,3 @@
 version_id,version_name,complacent_max,normal_max,elevated_max,effective_date,notes
 1,initial,12,20,30,2024-11-01,Initial thresholds based on historical VIX averages
+2,updated,15,18,28,2024-11-15,Updated thresholds based on recent market conditions

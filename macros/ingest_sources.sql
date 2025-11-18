@@ -9,7 +9,12 @@
   {% endif %}
 
   -- 1) ensure schema exists
+  {{ run_query("attach 'md:';") }}
+
   {{ run_query("create schema if not exists " ~ db ~ "." ~ schema ~ ";") }}
+
+  {{ run_query("use "~ db ~ "." ~ schema ~ ";" ) }}
+
 
   {% if source == 'stocks' %}
     {# stocks: expected cols: trade_date, ticker, open, high, low, close, volume, loaded_at #}
@@ -51,16 +56,16 @@
 
     {% set sql %}
       insert into {{ db }}.{{ schema }}.vix
-        ("trade_date", "close", loaded_at)
+        (trade_date, "close", loaded_at)
       select
-        cast(coalesce(observation_date) as date)        as "trade_date",
-        cast(coalesce(Close) as double)   as "close",
+        cast(coalesce(trade_date) as date)        as trade_date,
+        cast(coalesce("close") as double)   as "close",
         now()
       from read_csv_auto('{{ p }}/vix/{{ file_glob }}')
       where not exists (
         select 1
         from {{ db }}.{{ schema }}.vix t
-        where t.trade_date = cast(coalesce(observation_date) as date)
+        where t.trade_date = cast(coalesce(trade_date) as date)
       );
     {% endset %}
     {{ run_query(sql) }}
